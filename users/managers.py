@@ -2,7 +2,7 @@ from django.contrib.auth.base_user import BaseUserManager
 from django.db.models import Q
 
 
-class UserManager(BaseUserManager):
+class CustomBaseUserManager(BaseUserManager):
     """
     Custom user model manager. No username field,
     """
@@ -34,4 +34,4 @@ class UserManager(BaseUserManager):
         if kwargs.get('is_superuser') is not True:
             raise ValueError('Superuser must be have is_superuser = True')
 
-        return self.create_user(email, passwor,d **kwargs)
+        return self.create_user(email, password, **kwargs)

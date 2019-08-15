@@ -4,7 +4,7 @@ from django.db import models
 from django.contrib.auth.models import AbstractBaseUser
 from django.utils import timezone
 
-from users.managers import UserManager
+from users.managers import CustomBaseUserManager
 
 
 def generate_id():
@@ -34,6 +34,8 @@ class BaseUser(AbstractBaseUser):
     company = models.TextField(null=True)
     role = models.TextField(null=True)
     responsibilities = models.TextField(null=True)
+
+    objects = CustomBaseUserManager()
 
     # Settings
     USERNAME_FIELD = 'email'
