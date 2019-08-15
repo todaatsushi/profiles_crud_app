@@ -35,3 +35,10 @@ class CustomBaseUserManager(BaseUserManager):
             raise ValueError('Superuser must be have is_superuser = True')
 
         return self.create_user(email, password, **kwargs)
+
+
+    def get_by_email(self, email):
+        """
+        Be able to search for a user by the unique email.
+        """
+        return self.filter(Q(email=email))

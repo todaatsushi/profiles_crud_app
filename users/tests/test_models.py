@@ -59,3 +59,14 @@ class UsersManagerTestCase(TestCase):
                 is_superuser=False
             )
 
+    def test_get_by_email(self):
+        """
+        Test manager class's filter method - get_by_email
+        """
+        # Create user
+        User = get_user_model()
+        user = User.objects.create_user(email='test@mail.com', password='test')
+
+        query = User.objects.get_by_email('test@mail.com').first()
+        self.assertEqual(user, query)
+
