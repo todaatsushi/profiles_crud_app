@@ -14,7 +14,7 @@ def generate_id():
     return uuid.uuid4().hex
 
 
-class User(AbstractBaseUser):
+class BaseUser(AbstractBaseUser):
     id = models.TextField(
         primary_key=True,
         default=generate_id

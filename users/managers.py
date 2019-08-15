@@ -24,7 +24,7 @@ class UserManager(BaseUserManager):
         user.save()
         return user
 
-    def create_superuser(email, password, **kwargs):
+    def create_superuser(self, email, password, **kwargs):
         """
         Create and then save staff/super user instances given at least the email and password.
         """

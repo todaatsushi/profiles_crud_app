@@ -125,4 +125,4 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(SITE_ROOT, 'media')
 
 # Custom user settings
-AUTH_USER_MODEL = 'users.User'
+AUTH_USER_MODEL = 'users.BaseUser'
