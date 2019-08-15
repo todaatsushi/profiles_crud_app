@@ -3,6 +3,8 @@ import uuid
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser
 from django.utils import timezone
+# Provides mandatory methods to use for admin
+from django.contrib.auth.models import PermissionsMixin
 
 from users.managers import CustomBaseUserManager
 
@@ -14,7 +16,7 @@ def generate_id():
     return uuid.uuid4().hex
 
 
-class BaseUser(AbstractBaseUser):
+class BaseUser(AbstractBaseUser, PermissionsMixin):
     id = models.TextField(
         primary_key=True,
         default=generate_id
@@ -23,6 +25,7 @@ class BaseUser(AbstractBaseUser):
     email = models.EmailField(unique=True)
     created_at = models.DateTimeField(default=timezone.now)
     is_superuser = models.BooleanField(default=False)
+    is_staff = models.BooleanField(default=False)
 
     # User profile fields
     # Personal

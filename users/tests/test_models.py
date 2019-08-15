@@ -13,6 +13,7 @@ class UsersManagerTestCase(TestCase):
 
         self.assertEqual(user.email, 'test@mail.com')
         self.assertFalse(user.is_superuser)
+        self.assertFalse(user.is_staff)
 
         ## Custom User has no username
         try:
@@ -39,11 +40,12 @@ class UsersManagerTestCase(TestCase):
         # Create user
         User = get_user_model()
         staff = User.objects.create_superuser(
-            email='test@mail.com', password='test', is_superuser=True
+            email='test@mail.com', password='test', is_superuser=True, is_staff=True
         )
 
         self.assertEqual(staff.email, 'test@mail.com')
         self.assertTrue(staff.is_superuser)
+        self.assertTrue(staff.is_staff)
 
         ## Custom User has no username
         try:
