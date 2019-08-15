@@ -1,0 +1,16 @@
+{% extends 'users/layout.html' %}
+
+{% block title %}
+    All Users
+{% endblock %}
+
+{% block main %}
+    <h1>Hello world!</h1>
+    <section class="container">
+        {% for user in users %}
+            <section class="column is-one-quarter">
+                {{ user.first_name }}
+            </section>
+        {% endfor %}
+    </section>
+{% endblock %}
