@@ -1,5 +1,3 @@
-import uuid
-
 from django.contrib.auth.base_user import BaseUserManager
 from django.db.models import Q
 
@@ -37,4 +35,3 @@ class UserManager(BaseUserManager):
             raise ValueError('Superuser must be have is_superuser = True')
 
         return self.create_user(email, passwor,d **kwargs)
-        
