@@ -19,8 +19,10 @@ class User(AbstractBaseUser):
         primary_key=True,
         default=generate_id
     )
+
     email = models.EmailField(unique=True)
     created_at = models.DateTimeField(default=timezone.now)
+    is_superuser = models.BooleanField(default=False)
 
     # User profile fields
     # Personal
@@ -32,3 +34,9 @@ class User(AbstractBaseUser):
     company = models.TextField(null=True)
     role = models.TextField(null=True)
     responsibilities = models.TextField(null=True)
+
+    # Settings
+    USERNAME_FIELD = 'email'
+
+    def __str__(self):
+        return '{} - {}'.format(self.email, self.id)
