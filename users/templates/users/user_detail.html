@@ -1,0 +1,16 @@
+{% extends 'users/layout.html' %}
+
+{% block title %}
+    User - {{ target_user.first_name }} {{ target_user.last_name }}
+{% endblock %}
+
+{% block page_title %}
+    View User - {{ target_user.first_name }} {{ target_user.last_name }}
+{% endblock %}
+
+{% block function %}
+    More about {{ target_user.first_name }} - see if {{ target_user.first_name }} is a good fit for your company!
+{% endblock %}
+
+{% block main %}
+{% endblock %}

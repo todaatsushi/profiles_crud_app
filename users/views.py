@@ -9,7 +9,9 @@ class AllUsersView(generics.ListView):
     context_object_name = 'users'
     ordering = ['-created_at']
     paginate_by = 8
+        
 
-    def get_queryset(self):
-        return BaseUser.objects.all()
-
+class UserDetailView(generics.DetailView):
+    model = BaseUser
+    template_name = 'users/user_detail.html'
+    context_object_name = 'target_user'
