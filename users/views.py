@@ -5,7 +5,7 @@ import django.contrib.auth.mixins as mixins
 
 from users.models import BaseUser
 import users.forms as forms
-from users.mixins import IsOwnerOrStaffTestMixin
+import users.mixins as auth_mixins
 
 
 class AllBaseUsersView(generics.ListView):
@@ -22,7 +22,7 @@ class BaseUserDetailView(generics.DetailView):
     context_object_name = 'target_user'
 
 
-class BaseUserCreateView(SuccessMessageMixin, IsLoggedOutTestMixin,
+class BaseUserCreateView(SuccessMessageMixin, auth_mixins.IsLoggedOutTestMixin,
                          generics.CreateView):
     model = BaseUser
     template_name = 'users/user_create.html'
@@ -30,7 +30,7 @@ class BaseUserCreateView(SuccessMessageMixin, IsLoggedOutTestMixin,
     success_message = 'Welcome %(first_name)s to the site!'
 
 
-class BaseUserUpdateView(SuccessMessageMixin, IsOwnerOrStaffTestMixin,
+class BaseUserUpdateView(SuccessMessageMixin, auth_mixins.IsOwnerOrStaffTestMixin,
                          generics.UpdateView):
     model = BaseUser
     template_name = 'users/user_update.html'
@@ -38,7 +38,7 @@ class BaseUserUpdateView(SuccessMessageMixin, IsOwnerOrStaffTestMixin,
     success_message = 'Your profile was updated successfully.'
 
 
-class BaseUserDeleteView(SuccessMessageMixin, IsOwnerOrStaffTestMixin,
+class BaseUserDeleteView(SuccessMessageMixin, auth_mixins.IsOwnerOrStaffTestMixin,
                          generics.DeleteView):
     model = BaseUser
     template_name = 'users/user_confirm_delete.html'
