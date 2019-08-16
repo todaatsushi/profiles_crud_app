@@ -4,7 +4,7 @@ import users.forms as forms
 from users.models import BaseUser
 
 
-class CustomUserAdmin(admin.ModelAdmin):
+class BaseUserAdmin(admin.ModelAdmin):
     list_display = (
         'email', 'is_staff', 'first_name', 'last_name',
         'about', 'company', 'role',
@@ -17,4 +17,4 @@ class CustomUserAdmin(admin.ModelAdmin):
     ]
 
 
-admin.site.register(BaseUser, CustomUserAdmin)
+admin.site.register(BaseUser, BaseUserAdmin)
