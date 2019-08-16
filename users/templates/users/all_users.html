@@ -4,8 +4,15 @@
     All Users
 {% endblock %}
 
+{% block page_title %}
+    Home
+{% endblock %}
+
+{% block function %}
+    See all users!
+{% endblock %}
+
 {% block main %}
-    <h1>Hello world!</h1>
     <section class="container">
         {% for user in users %}
             <section class="column is-one-quarter">
