@@ -9,4 +9,5 @@ urlpatterns = [
     path('user/new/', v.BaseUserCreateView.as_view(), name='user-create'),
     path('user/<str:pk>/', v.BaseUserDetailView.as_view(), name='user-detail'),
     path('user/<str:pk>/update/', v.BaseUserUpdateView.as_view(), name='user-update'),
+    path('user/<str:pk>/delete/', v.BaseUserDeleteView.as_view(), name='user-delete'),
 ]

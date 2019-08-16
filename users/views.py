@@ -1,3 +1,4 @@
+from django.urls import reverse
 from django.contrib.messages.views import SuccessMessageMixin
 import django.views.generic as generics
 import django.contrib.auth.mixins as mixins
@@ -33,3 +34,9 @@ class BaseUserUpdateView(SuccessMessageMixin, generics.UpdateView):
     form_class = forms.BaseUserForm
     success_message = 'Your profile was updated successfully.'
 
+
+class BaseUserDeleteView(SuccessMessageMixin, generics.DeleteView):
+    model = BaseUser
+    template_name = 'users/user_confirm_delete.html'
+    success_url = '/'
+    success_message = "You've successfully deleted the user."
