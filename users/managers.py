@@ -47,3 +47,12 @@ class CustomBaseUserManager(BaseUserManager):
         Be able to search for a user by the unique email.
         """
         return self.filter(Q(email=email))
+
+
+    def get_by_name(self, first_or_last_name):
+        """
+        Be able to search for a user by either first or last name.
+        """
+        return self.filter(
+            Q(first_name=first_or_last_name) | Q(last_name=first_or_last_name)
+        )

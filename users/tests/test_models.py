@@ -72,3 +72,22 @@ class UsersManagerTestCase(TestCase):
         query = User.objects.get_by_email('test@mail.com').first()
         self.assertEqual(user, query)
 
+   
+    def test_get_by_name(self):
+        """
+        Test manager class's filter method - get_by_name
+        """
+        # Create user
+        User = get_user_model()
+        user = User.objects.create_user(
+            email='test@mail.com', password='test', first_name='Amy'
+        )
+        user2 = User.objects.create_user(
+            email='test2@mail.com', password='test', last_name='Ross'
+        )
+
+        query = User.objects.get_by_name('Amy').first()
+        self.assertEqual(user, query)
+
+        query = User.objects.get_by_name('Ross').first()
+        self.assertEqual(user2, query)
