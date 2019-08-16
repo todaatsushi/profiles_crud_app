@@ -3,6 +3,7 @@ import uuid
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser
 from django.utils import timezone
+from django.urls import reverse
 # Provides mandatory methods to use for admin
 from django.contrib.auth.models import PermissionsMixin
 
@@ -47,3 +48,6 @@ class BaseUser(AbstractBaseUser, PermissionsMixin):
 
     def __str__(self):
         return '{} - {}'.format(self.email, self.id)
+
+    def get_absolute_url(self):
+        return reverse('user-detail', kwargs={'pk': self.id})

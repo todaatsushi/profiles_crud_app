@@ -1,0 +1,24 @@
+{% extends 'users/layout.html' %}
+
+{% block title %}
+    Create New User
+{% endblock %}
+
+{% block page_title %}
+    Hey {{ user.first_name }} - update your profile.
+{% endblock %}
+
+{% block function %}
+    Change your details below.
+{% endblock %}
+
+{% block main %}
+    <section class="container">
+        <form method="POST">
+            {% csrf_token %}
+            <legend class="title">Create {{ user.first_name }}'s profile.</legend>
+            {{ form }}
+            <input type="submit" value="Create">
+        </form>
+    </section>
+{% endblock %}
