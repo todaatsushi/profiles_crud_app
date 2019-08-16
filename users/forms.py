@@ -6,18 +6,18 @@ from users.models import BaseUser
 class CustomUserCreationForm(UserCreationForm):
     class Meta(UserCreationForm):
         model = BaseUser
-        fields = [
+        fields = (
             'email', 'first_name', 'last_name',
             'about', 'company', 'role',
             'responsibilities',
-        ]
+        )
 
 
 class CustomUserChangeForm(UserChangeForm):
     class Meta(UserChangeForm):
         model = BaseUser
-        fields = [
+        fields = (
             'email', 'first_name', 'last_name',
             'about', 'company', 'role',
             'responsibilities',
-        ]
+        )

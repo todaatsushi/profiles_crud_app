@@ -28,17 +28,16 @@ class BaseUser(AbstractBaseUser, PermissionsMixin):
     # User status
     is_superuser = models.BooleanField(default=False)
     is_staff = models.BooleanField(default=False)
-    is_active = models.BooleanField(default=True)
 
     # User profile fields
     # Personal
-    first_name = models.TextField()
-    last_name = models.TextField()
+    first_name = models.CharField(max_length=200)
+    last_name = models.CharField(max_length=200)
     about = models.TextField()
 
     # Job details
-    company = models.TextField(null=True)
-    role = models.TextField(null=True)
+    company = models.CharField(max_length=200, null=True)
+    role = models.CharField(max_length=200, null=True)
     responsibilities = models.TextField(null=True)
 
     objects = CustomBaseUserManager()
