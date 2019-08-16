@@ -24,8 +24,11 @@ class BaseUser(AbstractBaseUser, PermissionsMixin):
 
     email = models.EmailField(unique=True)
     created_at = models.DateTimeField(default=timezone.now)
+
+    # User status
     is_superuser = models.BooleanField(default=False)
     is_staff = models.BooleanField(default=False)
+    is_active = models.BooleanField(default=True)
 
     # User profile fields
     # Personal
