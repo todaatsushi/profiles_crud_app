@@ -5,6 +5,7 @@ import django.contrib.auth.mixins as mixins
 
 from users.models import BaseUser
 import users.forms as forms
+from users.mixins import IsOwnerOrStaffTestMixin
 
 
 class AllBaseUsersView(generics.ListView):
@@ -21,21 +22,24 @@ class BaseUserDetailView(generics.DetailView):
     context_object_name = 'target_user'
 
 
-class BaseUserCreateView(SuccessMessageMixin, generics.CreateView):
+class BaseUserCreateView(SuccessMessageMixin, IsLoggedOutTestMixin,
+                         generics.CreateView):
     model = BaseUser
     template_name = 'users/user_create.html'
     form_class = forms.BaseUserForm
     success_message = 'Welcome %(first_name)s to the site!'
 
 
-class BaseUserUpdateView(SuccessMessageMixin, generics.UpdateView):
+class BaseUserUpdateView(SuccessMessageMixin, IsOwnerOrStaffTestMixin,
+                         generics.UpdateView):
     model = BaseUser
     template_name = 'users/user_update.html'
     form_class = forms.BaseUserForm
     success_message = 'Your profile was updated successfully.'
 
 
-class BaseUserDeleteView(SuccessMessageMixin, generics.DeleteView):
+class BaseUserDeleteView(SuccessMessageMixin, IsOwnerOrStaffTestMixin,
+                         generics.DeleteView):
     model = BaseUser
     template_name = 'users/user_confirm_delete.html'
     success_url = '/'
