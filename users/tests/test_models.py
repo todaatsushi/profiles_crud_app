@@ -2,7 +2,7 @@ from django.test import TestCase
 from django.contrib.auth import get_user_model
 
 
-class UsersManagerTestCase(TestCase):
+class CustomBaseUserManagerTestCase(TestCase):
     def test_create_user(self):
         """
         Using the custom UserManager, test if we can create a normal user with valid credentials.

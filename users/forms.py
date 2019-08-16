@@ -3,7 +3,8 @@ from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 from users.models import BaseUser
 
 
-class CustomUserCreationForm(UserCreationForm):
+# Admin forms
+class BaseUserCreationForm(UserCreationForm):
     class Meta(UserCreationForm):
         model = BaseUser
         fields = (
@@ -13,7 +14,7 @@ class CustomUserCreationForm(UserCreationForm):
         )
 
 
-class CustomUserChangeForm(UserChangeForm):
+class BaseUserChangeForm(UserChangeForm):
     class Meta(UserChangeForm):
         model = BaseUser
         fields = (
@@ -21,3 +22,8 @@ class CustomUserChangeForm(UserChangeForm):
             'about', 'company', 'role',
             'responsibilities',
         )
+
+
+# User forms
+# class BaseUserRegisterForm():
+#     pass

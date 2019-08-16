@@ -5,6 +5,6 @@ import users.views as v
 
 
 urlpatterns = [
-    path('', v.AllUsersView.as_view(), name='users-list'),
-    path('<str:pk>/', v.UserDetailView.as_view(), name='users-detail'),
+    path('', v.AllBaseUsersView.as_view(), name='users-list'),
+    path('<str:pk>/', v.BaseUserDetailView.as_view(), name='users-detail'),
 ]
