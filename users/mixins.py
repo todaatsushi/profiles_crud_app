@@ -2,6 +2,7 @@
 Custom mixins based on UserPassesTestMixin.
 """
 from django.contrib.auth.mixins import UserPassesTestMixin
+from django.contrib.auth import get_user_model
 
 
 class IsOwnerOrStaffTestMixin(UserPassesTestMixin):
@@ -22,4 +23,8 @@ class IsLoggedOutTestMixin(UserPassesTestMixin):
     Only allows users to create profiles if they are logged out.
     """
     def test_func(self):
-        return False if self.request.user else True
+        User = get_user_model()
+        all_users = User.objects.all()
+
+        flag = False if self.request.user in all_users else True
+        return flag
