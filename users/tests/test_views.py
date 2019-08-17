@@ -57,9 +57,24 @@ class UsersViewsTestCase(TestCase):
         self.assertTemplateUsed('users/user_detail.html')
 
     def test_base_user_create_view_authentication(self):
-        pass
+        """
+        Test if create view only allows non logged in user
+        to access.
+        """
+        # Not logged in
+        response = self.client.get(reverse('user-create'))
+        self.assertEqual(response.status_code, 200)
+
+        # Logged in
+        self.client.force_login(self.user)
+        forbidden = self.client.get(reverse('user-create'))
+        self.assertEqual(forbidden.status_code, 403)
 
     def test_base_user_create_view_template(self):
+        response = self.client.get(reverse('user-create'))
+
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed('users/user_create')
         pass
 
     def test_base_user_update_view_authentication(self):
