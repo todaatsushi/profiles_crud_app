@@ -1,0 +1,24 @@
+{% extends 'users/layout.html' %}
+
+{% block title %}
+    {% block title_2 %}{% endblock %}
+{% endblock %}
+
+{% block page_title %}
+    {% block page_title_2 %}{% endblock %}
+{% endblock %}
+
+{% block function %}
+    {% block function_2 %}{% endblock %}
+{% endblock %}
+
+{% block main %}
+    <section class="container">
+        <form method="post" class="form-main">
+            {% csrf_token %}
+            <legend class="title">{% block legend %}{% endblock %}</legend>
+            <input type="submit" value="{% block confirm %}{% endblock %}">
+            <a href="{% url 'user-detail' user.pk %}" class="button">Cancel</a>
+        </form>
+    </section>
+{% endblock %}

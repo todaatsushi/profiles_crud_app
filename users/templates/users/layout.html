@@ -32,21 +32,24 @@
       <div class="navbar-item">
         <div class="buttons">
           {% if user.is_authenticated %}
-            <a href="" class="button">
+            <a href="{% url 'user-detail' user.pk %}" class="button">
               View Profile
             </a>
-            <a href="" class="button">
+            <a href="{% url 'user-update' user.pk %}" class="button">
               Update Profile
             </a>
-            <a href="" class="button">
+            <a href="{% url 'user-delete' user.pk %}" class="button">
               Delete Profile
             </a>
-            <a href="" class="button">
+            <a href="{% url 'user-logout' %}" class="button">
               Logout
             </a>
           {% else %}
             <a href="{% url 'user-create' %}" class="button">
               Sign Up
+            </a>
+            <a href="{% url 'user-login' %}" class="button">
+              Login
             </a>
           {% endif %}
         </div>

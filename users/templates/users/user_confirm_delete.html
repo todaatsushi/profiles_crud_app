@@ -1,24 +1,17 @@
-{% extends 'users/layout.html' %}
+{% extends 'users/user_confirm_form.html' %}
 
-{% block title %}
+{% block title_2 %}
     User - {{ target_user.first_name }} {{ target_user.last_name }}
 {% endblock %}
 
-{% block page_title %}
-    View User - {{ target_user.first_name }} {{ target_user.last_name }}
+{% block page_title_2 %}
+    Delete User - {{ target_user.first_name }} {{ target_user.last_name }}
 {% endblock %}
 
-{% block function %}
-    More about {{ target_user.first_name }} - see if {{ target_user.first_name }} is a good fit for your company!
+{% block legend %}
+    Delete {{ target.first_name }}'s profile?
 {% endblock %}
 
-{% block main %}
-    <section class="container">
-        <form method="post" class="form-main">
-            {% csrf_token %}
-            <legend class="title">Delete {{ user.first_name }}'s profile?</legend>
-            <input type="submit" value="Delete">
-            <a href="{% url 'user-detail' user.pk %}" class="button">Don't Delete</a>
-        </form>
-    </section>
+{% block confirm %}
+    Delete
 {% endblock %}
