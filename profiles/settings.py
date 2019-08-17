@@ -126,3 +126,5 @@ MEDIA_ROOT = os.path.join(SITE_ROOT, 'media')
 
 # Custom user settings
 AUTH_USER_MODEL = 'users.BaseUser'
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/'
