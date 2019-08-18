@@ -26,9 +26,21 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
 
+    # Custom apps
     'users.apps.UsersConfig',
+
+    # All auth
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.github',
+
 ]
+
+# all-auth
+SITE_ID = 1
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -53,6 +65,9 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+
+                # All-auth configuration
+                'django.template.context_processors.request',
             ],
         },
     },
@@ -101,6 +116,11 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+# Authentication backend - all-auth
+AUTHENTICATION_BACKENDS = (
+    # `allauth` specific authentication methods, such as login by e-mail
+    'allauth.account.auth_backends.AuthenticationBackend',
+)
 
 # Internationalization
 # https://docs.djangoproject.com/en/2.2/topics/i18n/
