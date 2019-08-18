@@ -4,6 +4,15 @@ from django.contrib.auth import get_user_model
 
 
 class UsersViewsTestCase(TestCase):
+    """
+    Unit tests for all the views in the users app.
+
+    Each view will have tests to see if they can sucessfully serve
+    templates required.
+
+    Views with authentication/test functions will have them tested
+    also.
+    """
     def setUp(self):
         User = get_user_model()
         self.user = User.objects.create_user(
@@ -42,13 +51,13 @@ class UsersViewsTestCase(TestCase):
             is_superuser=True
         )
 
-    def test_all_base_users_view_template(self):
+    def test_base_users_list_view_serves_template(self):
         response = self.client.get(reverse('user-list'))
 
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed('users/user_list.html')
 
-    def test_base_user_detail_view_template(self):
+    def test_base_user_detail_view_serves_template(self):
         response = self.client.get(reverse('user-detail', kwargs={
             'pk': self.user.pk
         }))
@@ -56,7 +65,7 @@ class UsersViewsTestCase(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed('users/user_detail.html')
 
-    def test_base_user_create_view_authentication(self):
+    def test_base_user_create_view_authentication_works(self):
         """
         Test if create view only allows non logged in user
         to access.
@@ -70,13 +79,13 @@ class UsersViewsTestCase(TestCase):
         forbidden_response = self.client.get(reverse('user-create'))
         self.assertEqual(forbidden_response.status_code, 403)
 
-    def test_base_user_create_view_template(self):
+    def test_base_user_create_view_serves_template(self):
         response = self.client.get(reverse('user-create'))
 
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed('users/user_create.html')
 
-    def test_base_user_update_view_authentication_regular_user(self):
+    def test_base_user_update_view_authentication_for_regular_users_work(self):
         """
         Test if users can only update their own profiles.
         """
@@ -100,7 +109,7 @@ class UsersViewsTestCase(TestCase):
         )
         self.assertEqual(same_user_response.status_code, 200)
     
-    def test_base_user_update_view_authentication_staff_user(self):
+    def test_base_user_update_view_authentication_for_staff_users_work(self):
         """
         Test staff users can update any user's profile.
         """
@@ -116,14 +125,14 @@ class UsersViewsTestCase(TestCase):
         )
         self.assertEqual(regular_user_profile_response.status_code, 200)
 
-    def test_base_user_update_view_template(self):
+    def test_base_user_update_view_serves_template(self):
         self.client.force_login(self.user)
 
         response = self.client.get(reverse('user-update', kwargs={'pk': self.user.pk}))
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed('users/user_update.html')
 
-    def test_base_user_delete_view_authentication_regular_user(self):
+    def test_base_user_delete_view_authentication_for_regular_users_work(self):
         """
         Test if users can only delete their own profiles.
         """
@@ -147,7 +156,7 @@ class UsersViewsTestCase(TestCase):
         )
         self.assertEqual(same_user_response.status_code, 200)
     
-    def test_base_user_delete_view_authentication_staff_user(self):
+    def test_base_user_delete_view_authentication_for_staff_users_work(self):
         """
         Test staff users can delete any user's profile.
         """
