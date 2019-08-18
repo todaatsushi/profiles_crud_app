@@ -33,13 +33,13 @@
         <div class="buttons">
           {% if user.is_authenticated %}
             <a href="{% url 'user-detail' user.pk %}" class="button">
-              View Profile
+              View
             </a>
             <a href="{% url 'user-update' user.pk %}" class="button">
-              Update Profile
+              Update
             </a>
             <a href="{% url 'user-delete' user.pk %}" class="button">
-              Delete Profile
+              Delete
             </a>
             <a href="{% url 'user-logout' %}" class="button">
               Logout
