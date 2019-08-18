@@ -4,7 +4,11 @@ from django.contrib.auth import get_user_model
 import users.forms as forms
 
 
-class BaseUserCreateFormTestCase(TestCase):
+class BaseUserFormTestCase(TestCase):
+    """
+    Test that BaseUserUpdateForm & BaseUserCreateForm can detect/
+    validate both valid and invalid data.
+    """
     def setUp(self):
         self.valid_data = {
             'username': 'wilfred',
@@ -32,16 +36,6 @@ class BaseUserCreateFormTestCase(TestCase):
             'password2': 'invalid'
         }
 
-    def test_form_can_validate_data(self):
-        valid_form = forms.BaseUserCreateForm(data=self.valid_data)
-        self.assertTrue(valid_form.is_valid())
-
-        invalid_form = forms.BaseUserCreateForm(data=self.invalid_data)
-        self.assertFalse(invalid_form.is_valid())
-
-
-class BaseUserUpdateFormTestCase(TestCase):
-    def setUp(self):
         User = get_user_model()
         self.user = User.objects.create_user(
             email='john@mail.com',
@@ -55,9 +49,24 @@ class BaseUserUpdateFormTestCase(TestCase):
             responsibilities='None'
         )
 
+
+class BaseUserCreateFormTestCase(BaseUserFormTestCase):
     def test_form_can_validate_data(self):
-        """
-        Test that BaseUserUpdateForm can detect both valid
-        and invalid data from BaseUser instances.
-        """
-        pass
+        valid_form = forms.BaseUserCreateForm(data=self.valid_data)
+        self.assertTrue(valid_form.is_valid())
+
+        invalid_form = forms.BaseUserCreateForm(data=self.invalid_data)
+        self.assertFalse(invalid_form.is_valid())
+
+
+class BaseUserUpdateFormTestCase(BaseUserFormTestCase):
+    def test_form_can_validate_data(self):
+        valid_form = forms.BaseUserUpdateForm(
+            instance=self.user, data=self.valid_data
+        )
+        self.assertTrue(valid_form.is_valid())
+
+        invalid_form = forms.BaseUserUpdateForm(
+            instance=self.user, data=self.invalid_data
+        )
+        self.assertTrue(invalid_form.is_valid())
