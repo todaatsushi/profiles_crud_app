@@ -67,24 +67,98 @@ class UsersViewsTestCase(TestCase):
 
         # Logged in
         self.client.force_login(self.user)
-        forbidden = self.client.get(reverse('user-create'))
-        self.assertEqual(forbidden.status_code, 403)
+        forbidden_response = self.client.get(reverse('user-create'))
+        self.assertEqual(forbidden_response.status_code, 403)
 
     def test_base_user_create_view_template(self):
         response = self.client.get(reverse('user-create'))
 
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed('users/user_create')
-        pass
+        self.assertTemplateUsed('users/user_create.html')
 
-    def test_base_user_update_view_authentication(self):
-        pass
+    def test_base_user_update_view_authentication_regular_user(self):
+        """
+        Test if users can only update their own profiles.
+        """
+        # Not logged in
+        not_logged_in_response = self.client.get(
+            reverse('user-update', kwargs={'pk': self.user.pk})
+        )
+        # Redirect to login
+        self.assertEqual(not_logged_in_response.status_code, 302)
+
+        # Not own profile
+        self.client.force_login(self.user)
+        other_user_response = self.client.get(
+            reverse('user-update', kwargs={'pk': self.user2.pk})
+        )
+        self.assertEqual(other_user_response.status_code, 403)
+        
+        # Own profile
+        same_user_response = self.client.get(
+            reverse('user-update', kwargs={'pk': self.user.pk})
+        )
+        self.assertEqual(same_user_response.status_code, 200)
+    
+    def test_base_user_update_view_authentication_staff_user(self):
+        """
+        Test staff users can update any user's profile.
+        """
+        self.client.force_login(self.staff)
+
+        staff_own_profile_response = self.client.get(
+            reverse('user-update', kwargs={'pk': self.staff.pk})
+        )
+        self.assertEqual(staff_own_profile_response.status_code, 200)
+
+        regular_user_profile_response = self.client.get(
+            reverse('user-update', kwargs={'pk': self.user.pk})
+        )
+        self.assertEqual(regular_user_profile_response.status_code, 200)
 
     def test_base_user_update_view_template(self):
-        pass
-    
-    def test_base_user_delete_view_authentication(self):
-        pass
+        self.client.force_login(self.user)
 
-    def test_base_user_delete_view_template(self):
-        pass
+        response = self.client.get(reverse('user-update', kwargs={'pk': self.user.pk}))
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed('users/user_update.html')
+
+    def test_base_user_delete_view_authentication_regular_user(self):
+        """
+        Test if users can only delete their own profiles.
+        """
+        # Not logged in
+        not_logged_in_response = self.client.get(
+            reverse('user-delete', kwargs={'pk': self.user.pk})
+        )
+        # Redirect to login
+        self.assertEqual(not_logged_in_response.status_code, 302)
+
+        # Not own profile
+        self.client.force_login(self.user)
+        other_user_response = self.client.get(
+            reverse('user-delete', kwargs={'pk': self.user2.pk})
+        )
+        self.assertEqual(other_user_response.status_code, 403)
+        
+        # Own profile
+        same_user_response = self.client.get(
+            reverse('user-delete', kwargs={'pk': self.user.pk})
+        )
+        self.assertEqual(same_user_response.status_code, 200)
+    
+    def test_base_user_delete_view_authentication_staff_user(self):
+        """
+        Test staff users can delete any user's profile.
+        """
+        self.client.force_login(self.staff)
+
+        staff_own_profile_response = self.client.get(
+            reverse('user-delete', kwargs={'pk': self.staff.pk})
+        )
+        self.assertEqual(staff_own_profile_response.status_code, 200)
+
+        regular_user_profile_response = self.client.get(
+            reverse('user-delete', kwargs={'pk': self.user.pk})
+        )
+        self.assertEqual(regular_user_profile_response.status_code, 200)

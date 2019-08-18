@@ -45,3 +45,4 @@ class BaseUserDeleteView(SuccessMessageMixin, auth_mixins.IsOwnerOrStaffTestMixi
     template_name = 'users/user_confirm_delete.html'
     success_url = '/'
     success_message = "You've successfully deleted the user."
+    context_object_name = 'target_user'
