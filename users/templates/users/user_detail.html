@@ -34,11 +34,11 @@
     </section>
     {% if user == target_user or user.is_staff%}
         <section class="details buttons is-full">
-            <a href="{% url 'user-update' target_user.pk %}" class="button">
-                Update
+            <a href="{% url 'user-update' target_user.username %}" class="button">
+                Update your profile
             </a>
-            <a href="{% url 'user-delete' target_user.pk %}" class="button">
-                Delete
+            <a href="{% url 'user-delete' target_user.username %}" class="button">
+                Delete your profile
             </a>
         </section>
     {% endif %}
