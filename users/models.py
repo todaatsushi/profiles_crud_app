@@ -48,4 +48,4 @@ class BaseUser(AbstractUser, PermissionsMixin):
         return '{} - {}'.format(self.email, self.id)
 
     def get_absolute_url(self):
-        return reverse('user-detail', kwargs={'pk': self.id})
+        return reverse('user-detail', kwargs={'slug': self.username})
