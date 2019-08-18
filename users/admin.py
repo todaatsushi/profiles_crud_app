@@ -1,6 +1,5 @@
 from django.contrib import admin
 
-import users.forms as forms
 from users.models import BaseUser
 
 
