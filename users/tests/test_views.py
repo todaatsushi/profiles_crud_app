@@ -17,6 +17,7 @@ class UsersViewsTestCase(TestCase):
         User = get_user_model()
         self.user = User.objects.create_user(
             email='jane@mail.com',
+            username='jane',
             password='foo',
             first_name='Jane',
             last_name='Doe',
@@ -29,6 +30,7 @@ class UsersViewsTestCase(TestCase):
         self.user2 = User.objects.create_user(
             email='john@mail.com',
             password='foo',
+            username='john',
             first_name='John',
             last_name='Doe',
             about='Test person',
@@ -40,6 +42,7 @@ class UsersViewsTestCase(TestCase):
         self.staff = User.objects.create_superuser(
             email='staff@mail.com',
             password='foo',
+            username='janet',
             first_name='Janet',
             last_name='Doel',
             about='Test person',
@@ -59,7 +62,7 @@ class UsersViewsTestCase(TestCase):
 
     def test_base_user_detail_view_serves_template(self):
         response = self.client.get(reverse('user-detail', kwargs={
-            'pk': self.user.pk
+            'slug': self.user.username
         }))
 
         self.assertEqual(response.status_code, 200)
@@ -91,7 +94,7 @@ class UsersViewsTestCase(TestCase):
         """
         # Not logged in
         not_logged_in_response = self.client.get(
-            reverse('user-update', kwargs={'pk': self.user.pk})
+            reverse('user-update', kwargs={'slug': self.user.username})
         )
         # Redirect to login
         self.assertEqual(not_logged_in_response.status_code, 302)
@@ -99,13 +102,13 @@ class UsersViewsTestCase(TestCase):
         # Not own profile
         self.client.force_login(self.user)
         other_user_response = self.client.get(
-            reverse('user-update', kwargs={'pk': self.user2.pk})
+            reverse('user-update', kwargs={'slug': self.user2.username})
         )
         self.assertEqual(other_user_response.status_code, 403)
         
         # Own profile
         same_user_response = self.client.get(
-            reverse('user-update', kwargs={'pk': self.user.pk})
+            reverse('user-update', kwargs={'slug': self.user.username})
         )
         self.assertEqual(same_user_response.status_code, 200)
     
@@ -116,19 +119,19 @@ class UsersViewsTestCase(TestCase):
         self.client.force_login(self.staff)
 
         staff_own_profile_response = self.client.get(
-            reverse('user-update', kwargs={'pk': self.staff.pk})
+            reverse('user-update', kwargs={'slug': self.staff.username})
         )
         self.assertEqual(staff_own_profile_response.status_code, 200)
 
         regular_user_profile_response = self.client.get(
-            reverse('user-update', kwargs={'pk': self.user.pk})
+            reverse('user-update', kwargs={'slug': self.user.username})
         )
         self.assertEqual(regular_user_profile_response.status_code, 200)
 
     def test_base_user_update_view_serves_template(self):
         self.client.force_login(self.user)
 
-        response = self.client.get(reverse('user-update', kwargs={'pk': self.user.pk}))
+        response = self.client.get(reverse('user-update', kwargs={'slug': self.user.username}))
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed('users/user_update.html')
 
@@ -138,7 +141,7 @@ class UsersViewsTestCase(TestCase):
         """
         # Not logged in
         not_logged_in_response = self.client.get(
-            reverse('user-delete', kwargs={'pk': self.user.pk})
+            reverse('user-delete', kwargs={'slug': self.user.username})
         )
         # Redirect to login
         self.assertEqual(not_logged_in_response.status_code, 302)
@@ -146,13 +149,13 @@ class UsersViewsTestCase(TestCase):
         # Not own profile
         self.client.force_login(self.user)
         other_user_response = self.client.get(
-            reverse('user-delete', kwargs={'pk': self.user2.pk})
+            reverse('user-delete', kwargs={'slug': self.user2.username})
         )
         self.assertEqual(other_user_response.status_code, 403)
         
         # Own profile
         same_user_response = self.client.get(
-            reverse('user-delete', kwargs={'pk': self.user.pk})
+            reverse('user-delete', kwargs={'slug': self.user.username})
         )
         self.assertEqual(same_user_response.status_code, 200)
     
@@ -163,11 +166,11 @@ class UsersViewsTestCase(TestCase):
         self.client.force_login(self.staff)
 
         staff_own_profile_response = self.client.get(
-            reverse('user-delete', kwargs={'pk': self.staff.pk})
+            reverse('user-delete', kwargs={'slug': self.staff.username})
         )
         self.assertEqual(staff_own_profile_response.status_code, 200)
 
         regular_user_profile_response = self.client.get(
-            reverse('user-delete', kwargs={'pk': self.user.pk})
+            reverse('user-delete', kwargs={'slug': self.user.username})
         )
         self.assertEqual(regular_user_profile_response.status_code, 200)

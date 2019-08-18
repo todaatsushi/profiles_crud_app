@@ -16,7 +16,7 @@
     <section class="container">
         {% for user in users %}
             <section class="column is-one-quarter">
-                <a href="{% url 'user-detail' user.id %}">
+                <a href="{% url 'user-detail' user.username %}">
                     {{ user.first_name }}
                 </a>
             </section>

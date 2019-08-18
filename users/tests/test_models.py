@@ -69,10 +69,10 @@ class CustomBaseUserManagerTestCase(TestCase):
         # Create user
         User = get_user_model()
         user = User.objects.create_user(
-            email='test@mail.com', password='test', first_name='Amy'
+            email='test@mail.com', password='test', username='amy', first_name='Amy'
         )
         user2 = User.objects.create_user(
-            email='test2@mail.com', password='test', last_name='Ross'
+            email='test2@mail.com', password='test', username='mike', last_name='Ross'
         )
 
         query = User.objects.get_by_name('Amy').first()

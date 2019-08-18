@@ -20,6 +20,7 @@ class BaseUserDetailView(generics.DetailView):
     model = BaseUser
     template_name = 'users/user_detail.html'
     context_object_name = 'target_user'
+    slug_field = 'username'
 
 
 class BaseUserCreateView(SuccessMessageMixin, auth_mixins.IsLoggedOutTestMixin,
@@ -37,6 +38,7 @@ class BaseUserUpdateView(SuccessMessageMixin, auth_mixins.IsOwnerOrStaffTestMixi
     form_class = forms.BaseUserUpdateForm
     success_message = 'Your profile was updated successfully.'
     context_object_name = 'target_user'
+    slug_field = 'username'
 
 
 class BaseUserDeleteView(SuccessMessageMixin, auth_mixins.IsOwnerOrStaffTestMixin,
@@ -46,3 +48,4 @@ class BaseUserDeleteView(SuccessMessageMixin, auth_mixins.IsOwnerOrStaffTestMixi
     success_url = '/'
     success_message = "You've successfully deleted the user."
     context_object_name = 'target_user'
+    slug_field = 'username'
