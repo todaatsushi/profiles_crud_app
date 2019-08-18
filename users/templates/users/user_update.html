@@ -1,11 +1,11 @@
-{% extends 'users/layout.html' %}
+{% extends 'users/user_form.html' %}
 
 {% block title_2 %}
     Update Profile
 {% endblock %}
 
 {% block page_title_2 %}
-    Hey {{ user.first_name }} - update {% if user == target_user %}your {% else %} {{ target_user.first_name }}{% endif %} profile.
+    Hey {{ user.first_name }} - update {% if user == target_user %}your {% else %} {{ target_user.first_name }}'s {% endif %} profile.
 {% endblock %}
 
 {% block function_2 %}
