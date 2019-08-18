@@ -29,7 +29,7 @@ class BaseUserCreateView(SuccessMessageMixin, auth_mixins.IsLoggedOutTestMixin,
     template_name = 'users/user_create.html'
     form_class = forms.BaseUserCreateForm
     success_message = 'Welcome %(first_name)s to the site! Please login.'
-    success_url = '/login/'
+    success_url = '/user/auth/login/'
 
 
 class BaseUserUpdateView(SuccessMessageMixin, auth_mixins.IsOwnerOrStaffTestMixin,
