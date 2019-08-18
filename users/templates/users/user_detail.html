@@ -13,4 +13,26 @@
 {% endblock %}
 
 {% block main %}
+    <section class="container columns">
+        <div class="column">
+            <!-- User Info -->
+            <h1 class="title is-2">{{ target_user.first_name }} {{ target_user.last_name }} {% if target_user.is_staff %}(STAFF){% endif %}</h1>
+
+            <p>
+                {{ target_user.about }}
+            </p>
+        </div>
+        <div class="column">
+            <!-- Professional Info -->
+            <h1 class="title is-2">{{ target_user.role }} - {{ target_user.company }}</h1>
+
+            <p>
+                {{ target_user.responsibilities }}
+            </p>
+
+        </div>
+    </section>
+    <section class="details">
+        
+    </section>
 {% endblock %}
