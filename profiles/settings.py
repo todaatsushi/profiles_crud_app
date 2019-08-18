@@ -42,6 +42,9 @@ INSTALLED_APPS = [
 # all-auth
 SITE_ID = 1
 
+# No confirmation email sent
+ACCOUNT_EMAIL_VERIFICATION = 'none'
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',

@@ -1,4 +1,5 @@
 {% extends 'users/user_form.html' %}
+{% load socialaccount %}
 
 {% block title_2 %}
     Create New User
@@ -18,4 +19,8 @@
 
 {% block submit %}
     Create
+{% endblock %}
+
+{% block github_login %}
+    <a href="{% provider_login_url 'github' %}" class="button">Sign Up with GitHub</a>
 {% endblock %}
