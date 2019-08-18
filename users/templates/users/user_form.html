@@ -28,7 +28,7 @@
             {% for field in form.visible_fields %}
 
                 {# Don't show password options in the form on the update page - slice is for next page url options #}
-                {% if field.name == 'password' and not request.get_full_path|slice:":7" == '/login/' %}
+                {% if field.name == 'password' and not request.get_full_path|slice:":17" == '/user/auth/login/' %}
                 {% else %}
                     <div class="field">
                         <label for="{{ field.name }}" class="label">
