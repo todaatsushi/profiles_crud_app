@@ -19,13 +19,44 @@
     <section class="container">
         <form method="POST">
             {% csrf_token %}
+            {% for field, errors in form.errors.items %}
+                {% for error in errors %}
+                    <p class="is-4">{{ error }}</p>
+                {% endfor %}
+            {% endfor %}
             <legend class="title">{% block legend %} {% endblock %}</legend>
-            {{ form.as_p }}
-            <input type="submit" value="{% block submit %}{% endblock %}">
-            <a href="{% url 'user-list' %}" class="button">Cancel</a>
-        </form>
+            {% for field in form.visible_fields %}
+                {# Don't show password options in the form on the update page #}
+                {% if field.name == 'password' and not request.get_full_path == '/login/' %}
+                {% else %}
+                    <div class="field">
+                        <label for="{{ field.name }}" class="label">
+                            {{ field.label_tag }}
+                        </label>
+                        {% if field.errors %}
+                            <ul>
+                                {% for error in field.errors %}
+                                    <li>
+                                        <p class="help is-danger">{{ error }}</p>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        {% endif %}
+                        {{ field }}
+                        {% if field.help_text %}
+                            <p class="help">{{ field.help_text }}</p>
+                        {% endif %}
+                    </div>
+                {% endif %}
+            {% endfor %}
 
-        {% block github_login %}
-        {% endblock %}
+        
+        <div class="buttons">
+            <input type="submit" value="{% block submit %}{% endblock %}" class="button">
+            <a href="{% url 'user-list' %}" class="button">Cancel</a>
+            {% block extra %}
+            {% endblock %}
+        </div>
+        </form>
     </section>
 {% endblock %}

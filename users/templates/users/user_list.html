@@ -14,10 +14,10 @@
 
 {% block main %}
     <section class="container">
-        {% for user in users %}
+        {% for profile in users %}
             <section class="column is-one-quarter">
-                <a href="{% url 'user-detail' user.username %}">
-                    {{ user.first_name }}
+                <a href="{% url 'user-detail' profile.username %}">
+                    {{ profile.first_name }}
                 </a>
             </section>
         {% endfor %}

@@ -65,6 +65,14 @@
   </nav>
 
   <section class="container">
+    {% if messages %}
+      {% for message in messages %}
+        <div class="container">
+          {{ message }}
+        </div>
+      {% endfor %}
+    {% endif %}
+
     <section class="hero">
         <div class="hero-body">
             <h1 class="title">{% block page_title %}{% endblock %}</h1>

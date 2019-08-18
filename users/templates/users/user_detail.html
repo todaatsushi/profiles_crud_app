@@ -32,7 +32,7 @@
 
         </div>
     </section>
-    {% if user == target_user or user.is_staff%}
+    {% if user == target_user or user.is_staff %}
         <section class="details buttons is-full">
             <a href="{% url 'user-update' target_user.username %}" class="button">
                 Update your profile
