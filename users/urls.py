@@ -15,9 +15,9 @@ urlpatterns = [
     path('<str:slug>/delete/', v.BaseUserDeleteView.as_view(), name='user-delete'),
 
     # Login/Logout views
-    path('password/login/', av.LoginView.as_view(template_name='users/user_login.html'),
+    path('auth/login/', av.LoginView.as_view(template_name='users/user_login.html'),
          name='user-login'),
-    path('password/logout/', av.LogoutView.as_view(), name='user-logout'),
+    path('auth/logout/', av.LogoutView.as_view(), name='user-logout'),
 
     # Password reset
     path('password/password-change/',
