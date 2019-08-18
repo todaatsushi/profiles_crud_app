@@ -174,8 +174,3 @@ class UsersViewsTestCase(TestCase):
             reverse('user-delete', kwargs={'slug': self.user.username})
         )
         self.assertEqual(regular_user_profile_response.status_code, 200)
-
-    def test_base_user_login_serves_template(self):
-        response = self.client.get(reverse('user-login'))
-        self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed('users/user_login.html')
