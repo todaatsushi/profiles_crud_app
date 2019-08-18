@@ -5,7 +5,8 @@ from django.contrib.auth import get_user_model
 class CustomBaseUserManagerTestCase(TestCase):
     def test_create_user(self):
         """
-        Using the custom UserManager, test if we can create a normal user with valid credentials.
+        Using the custom UserManager, test if we can create a normal user with
+        valid credentials.
         """
         # Create user
         User = get_user_model()
@@ -14,12 +15,6 @@ class CustomBaseUserManagerTestCase(TestCase):
         self.assertEqual(user.email, 'test@mail.com')
         self.assertFalse(user.is_superuser)
         self.assertFalse(user.is_staff)
-
-        ## Custom User has no username
-        try:
-            self.assertIsNone(user.username)
-        except AttributeError:
-            pass
 
         # No args
         with self.assertRaises(TypeError):
@@ -46,12 +41,6 @@ class CustomBaseUserManagerTestCase(TestCase):
         self.assertEqual(staff.email, 'test@mail.com')
         self.assertTrue(staff.is_superuser)
         self.assertTrue(staff.is_staff)
-
-        ## Custom User has no username
-        try:
-            self.assertIsNone(staff.username)
-        except AttributeError:
-            pass
 
         # test that superuser cannot be created with is_superuser = False
         with self.assertRaises(ValueError):
