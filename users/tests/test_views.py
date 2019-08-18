@@ -54,6 +54,7 @@ class UsersViewsTestCase(TestCase):
             is_superuser=True
         )
 
+    # Profile management
     def test_base_users_list_view_serves_template(self):
         response = self.client.get(reverse('user-list'))
 
@@ -174,3 +175,29 @@ class UsersViewsTestCase(TestCase):
             reverse('user-delete', kwargs={'slug': self.user.username})
         )
         self.assertEqual(regular_user_profile_response.status_code, 200)
+
+    # Login/Password management tests
+    def test_base_user_login_serves_template(self):
+        response = self.client.get(reverse('user-login'))
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed('users/user_login.html')
+
+    def test_base_user_reset_password_serves_template(self):
+        # Make user to reset password
+        User = get_user_model()
+        user = User.objects.create_user(
+            email='test@mail.com',
+            password='foo',
+            username='John'
+        )
+
+        # login new user
+        self.client.force_login(user)
+        response = self.client.get(reverse('password-change'))
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed('users/user_password_change.html')
+
+    def test_base_user_reset_password_authentication(self):
+        response = self.client.get(reverse('password-change'))
+        self.assertEqual(response.status_code, 302)
+
