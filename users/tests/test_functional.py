@@ -22,53 +22,10 @@ class FunctionalTestBaseTestCase(LiveServerTestCase):
     
     @classmethod
     def setUpClass(cls):
-        print('Set up')
         super().setUpClass()
-
-        # Dummy data
-        User = get_user_model()
-        cls.user = User.objects.create_user(
-            email='jane@mail.com',
-            username='jane',
-            password='foo',
-            first_name='Jane',
-            last_name='Doe',
-            about='Test person',
-            company='None',
-            role='None',
-            responsibilities='None'
-        )
-
-        cls.user2 = User.objects.create_user(
-            email='john@mail.com',
-            password='foo',
-            username='john',
-            first_name='John',
-            last_name='Doe',
-            about='Test person',
-            company='None',
-            role='None',
-            responsibilities='None'
-        )
-
-        cls.staff = User.objects.create_superuser(
-            email='staff@mail.com',
-            password='foo',
-            username='janet',
-            first_name='Janet',
-            last_name='Doel',
-            about='Test person',
-            company='None',
-            role='None',
-            responsibilities='None',
-
-            is_staff=True,
-            is_superuser=True
-        )
 
         # Make webdriver
         if settings.DOCKER:
-
              # Set host to externally accessible web server address
             cls.host = socket.gethostbyname(socket.gethostname())
             cls.browser = webdriver.Remote(
@@ -93,6 +50,48 @@ class ProfilesCRUDFunctionalTestsTestCase(FunctionalTestBaseTestCase):
         User goes to the '/' page and sees the home title and the registered
         users listed. User visists a users profile.
         """
+
+        # Dummy data
+        User = get_user_model()
+        self.user = User.objects.create_user(
+            email='jane@mail.com',
+            username='jane',
+            password='foo',
+            first_name='Jane',
+            last_name='Doe',
+            about='Test person',
+            company='None',
+            role='None',
+            responsibilities='None'
+        )
+
+        self.user2 = User.objects.create_user(
+            email='john@mail.com',
+            password='foo',
+            username='john',
+            first_name='John',
+            last_name='Doe',
+            about='Test person',
+            company='None',
+            role='None',
+            responsibilities='None'
+        )
+
+        self.staff = User.objects.create_superuser(
+            email='staff@mail.com',
+            password='foo',
+            username='janet',
+            first_name='Janet',
+            last_name='Doel',
+            about='Test person',
+            company='None',
+            role='None',
+            responsibilities='None',
+
+            is_staff=True,
+            is_superuser=True
+        )
+
         self.browser.get(self.live_server_url)
         self.browser.implicitly_wait(3)
 
@@ -119,6 +118,47 @@ class ProfilesCRUDFunctionalTestsTestCase(FunctionalTestBaseTestCase):
         User goes to the '/' page and sees the home title and the two registered
         users listed. User then signs up for an account.
         """
+
+        # Dummy data
+        User = get_user_model()
+        self.user = User.objects.create_user(
+            email='jane@mail.com',
+            username='jane',
+            password='foo',
+            first_name='Jane',
+            last_name='Doe',
+            about='Test person',
+            company='None',
+            role='None',
+            responsibilities='None'
+        )
+
+        self.user2 = User.objects.create_user(
+            email='john@mail.com',
+            password='foo',
+            username='john',
+            first_name='John',
+            last_name='Doe',
+            about='Test person',
+            company='None',
+            role='None',
+            responsibilities='None'
+        )
+
+        self.staff = User.objects.create_superuser(
+            email='staff@mail.com',
+            password='foo',
+            username='janet',
+            first_name='Janet',
+            last_name='Doel',
+            about='Test person',
+            company='None',
+            role='None',
+            responsibilities='None',
+
+            is_staff=True,
+            is_superuser=True
+        )
         # Create page
         self.browser.get(self.live_server_url + reverse('user-create'))
         self.browser.implicitly_wait(3)
@@ -195,6 +235,47 @@ class ProfilesCRUDFunctionalTestsTestCase(FunctionalTestBaseTestCase):
         user attempts to update their own information having recently got a
         promotion. User updates info and sees new info in their profile.
         """
+
+        # Dummy data
+        User = get_user_model()
+        self.user = User.objects.create_user(
+            email='jane@mail.com',
+            username='jane',
+            password='foo',
+            first_name='Jane',
+            last_name='Doe',
+            about='Test person',
+            company='None',
+            role='None',
+            responsibilities='None'
+        )
+
+        self.user2 = User.objects.create_user(
+            email='john@mail.com',
+            password='foo',
+            username='john',
+            first_name='John',
+            last_name='Doe',
+            about='Test person',
+            company='None',
+            role='None',
+            responsibilities='None'
+        )
+
+        self.staff = User.objects.create_superuser(
+            email='staff@mail.com',
+            password='foo',
+            username='janet',
+            first_name='Janet',
+            last_name='Doel',
+            about='Test person',
+            company='None',
+            role='None',
+            responsibilities='None',
+
+            is_staff=True,
+            is_superuser=True
+        )
         self.browser.get(self.live_server_url)
         login = self.browser.find_element_by_link_text('Login')
         login.click()
@@ -241,6 +322,47 @@ class ProfilesCRUDFunctionalTestsTestCase(FunctionalTestBaseTestCase):
         """
         User John logs into his account and attempts to delete the account and his profile.
         """
+
+        # Dummy data
+        User = get_user_model()
+        self.user = User.objects.create_user(
+            email='jane@mail.com',
+            username='jane',
+            password='foo',
+            first_name='Jane',
+            last_name='Doe',
+            about='Test person',
+            company='None',
+            role='None',
+            responsibilities='None'
+        )
+
+        self.user2 = User.objects.create_user(
+            email='john@mail.com',
+            password='foo',
+            username='john',
+            first_name='John',
+            last_name='Doe',
+            about='Test person',
+            company='None',
+            role='None',
+            responsibilities='None'
+        )
+
+        self.staff = User.objects.create_superuser(
+            email='staff@mail.com',
+            password='foo',
+            username='janet',
+            first_name='Janet',
+            last_name='Doel',
+            about='Test person',
+            company='None',
+            role='None',
+            responsibilities='None',
+
+            is_staff=True,
+            is_superuser=True
+        )
         self.browser.get(self.live_server_url)
         self.browser.implicitly_wait(3)
 
