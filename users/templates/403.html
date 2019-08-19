@@ -1,14 +1,14 @@
 {% extends 'users/error_layout.html' %}
 
-{% code %}
+{% block code %}
     403
 {% endblock %}
 
-{% error_func %}
+{% block error_func %}
     Forbidden!
 {% endblock %}
 
-{% message %}
+{% block message %}
     <p>
         You're trying to access a page you aren't allowed to view!
     </p>
@@ -20,6 +20,6 @@
     </p>
 {% endblock %}
 
-{% template_code_2 %}
-https://github.com/todaatsushi/wolf_and_badger_crud_app/blob/master/users/templates/403.html
+{% block template_code_2 %}
+    https://github.com/todaatsushi/wolf_and_badger_crud_app/blob/master/users/templates/403.html
 {% endblock %}

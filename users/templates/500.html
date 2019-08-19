@@ -1,19 +1,19 @@
 {% extends 'users/error_layout.html' %}
 
-{% code %}
+{% block code %}
     500
 {% endblock %}
 
-{% error_func %}
+{% block error_func %}
     Internal Server Error!
 {% endblock %}
 
-{% message %}
+{% block message %}
     <p>
         Something's gone wrong inside of the server - it's not you!
     </p>
 {% endblock %}
 
-{% template_code_2 %}
-https://github.com/todaatsushi/wolf_and_badger_crud_app/blob/master/users/templates/500.html
+{% block template_code_2 %}
+    https://github.com/todaatsushi/wolf_and_badger_crud_app/blob/master/users/templates/500.html
 {% endblock %}

@@ -1,14 +1,14 @@
 {% extends 'users/error_layout.html' %}
 
-{% code %}
+{% block code %}
     404
 {% endblock %}
 
-{% error_func %}
+{% block error_func %}
     Not Found!
 {% endblock %}
 
-{% message %}
+{% block message %}
     <p>
         You're trying to access a page that doesn't exist.
     </p>
@@ -17,6 +17,6 @@
     </p>
 {% endblock %}
 
-{% template_code_2 %}
-https://github.com/todaatsushi/wolf_and_badger_crud_app/blob/master/users/templates/404.html
+{% block template_code_2 %}
+    https://github.com/todaatsushi/wolf_and_badger_crud_app/blob/master/users/templates/404.html
 {% endblock %}
