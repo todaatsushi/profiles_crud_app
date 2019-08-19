@@ -4,13 +4,20 @@ from django.contrib.auth import get_user_model
 
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
+
 import time
+import socket
 
 
 class ProfilesCRUDFunctionalTests(LiveServerTestCase):
-    def setUp(self):
+    host = '0.0.0.0'
+
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass()
         User = get_user_model()
-        self.user = User.objects.create_user(
+        cls.user = User.objects.create_user(
             email='jane@mail.com',
             username='jane',
             password='foo',
@@ -22,7 +29,7 @@ class ProfilesCRUDFunctionalTests(LiveServerTestCase):
             responsibilities='None'
         )
 
-        self.user2 = User.objects.create_user(
+        cls.user2 = User.objects.create_user(
             email='john@mail.com',
             password='foo',
             username='john',
@@ -34,7 +41,7 @@ class ProfilesCRUDFunctionalTests(LiveServerTestCase):
             responsibilities='None'
         )
 
-        self.staff = User.objects.create_superuser(
+        cls.staff = User.objects.create_superuser(
             email='staff@mail.com',
             password='foo',
             username='janet',
@@ -49,10 +56,62 @@ class ProfilesCRUDFunctionalTests(LiveServerTestCase):
             is_superuser=True
         )
 
-        self.browser = webdriver.Firefox()
+        cls.host = socket.gethostbyname(socket.gethostname())
+        cls.browser = webdriver.Remote(
+            command_executor='http://selenium:4444/wd/hub',
+            desired_capabilities=DesiredCapabilities.CHROME,
+        )
+        time.sleep(5)
 
-    def tearDown(self):
-        self.browser.close()
+    @classmethod
+    def tearDownClass(cls):
+        cls.browser.quit()
+        super().tearDownClass()
+    # def setUp(self):
+    #     User = get_user_model()
+    #     self.user = User.objects.create_user(
+    #         email='jane@mail.com',
+    #         username='jane',
+    #         password='foo',
+    #         first_name='Jane',
+    #         last_name='Doe',
+    #         about='Test person',
+    #         company='None',
+    #         role='None',
+    #         responsibilities='None'
+    #     )
+
+    #     self.user2 = User.objects.create_user(
+    #         email='john@mail.com',
+    #         password='foo',
+    #         username='john',
+    #         first_name='John',
+    #         last_name='Doe',
+    #         about='Test person',
+    #         company='None',
+    #         role='None',
+    #         responsibilities='None'
+    #     )
+
+    #     self.staff = User.objects.create_superuser(
+    #         email='staff@mail.com',
+    #         password='foo',
+    #         username='janet',
+    #         first_name='Janet',
+    #         last_name='Doel',
+    #         about='Test person',
+    #         company='None',
+    #         role='None',
+    #         responsibilities='None',
+
+    #         is_staff=True,
+    #         is_superuser=True
+    #     )
+
+    #     self.browser = webdriver.Firefox()
+
+    # def tearDown(self):
+    #     self.browser.close()
     
     @tag('functional')
     def test_user_visits_site_to_view_profiles(self):
