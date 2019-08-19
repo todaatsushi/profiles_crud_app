@@ -1,0 +1,22 @@
+{% extends 'users/error_layout.html' %}
+
+{% code %}
+    404
+{% endblock %}
+
+{% error_func %}
+    Not Found!
+{% endblock %}
+
+{% message %}
+    <p>
+        You're trying to access a page that doesn't exist.
+    </p>
+    <p class="help">
+        Make sure the url is correct.
+    </p>
+{% endblock %}
+
+{% template_code_2 %}
+    404
+{% endblock %}

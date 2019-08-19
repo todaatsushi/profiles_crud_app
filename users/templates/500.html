@@ -1,0 +1,19 @@
+{% extends 'users/error_layout.html' %}
+
+{% code %}
+    500
+{% endblock %}
+
+{% error_func %}
+    Internal Server Error!
+{% endblock %}
+
+{% message %}
+    <p>
+        Something's gone wrong inside of the server - it's not you!
+    </p>
+{% endblock %}
+
+{% template_code_2 %}
+    500
+{% endblock %}

@@ -1,0 +1,30 @@
+{% extends 'users/layout.html' %}
+
+{% block title %}
+    Error!
+{% endblock %}
+
+{% block page_title %}
+    Error: {% block code %}{% endblock %}
+{% endblock %}
+
+{% block function %}
+    {% block error_func %}{% endblock %}
+{% endblock %}
+
+{% block main %}
+    <section class="container">
+        <h1 class="title is-2">Something's not right</h1>
+        <div class="container">
+            {% block message %}
+
+            {% endblock %}
+        </div>
+
+        Report the bug on <a href="https://github.com/todaatsushi/wolf_and_badger_crud_app">GitHub</a> or try again.
+    </section>
+{% endblock %}
+
+{% block template_code %}
+    {% block template_code_2 %}{% endblock %}
+{% endblock %}

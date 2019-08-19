@@ -1,0 +1,25 @@
+{% extends 'users/error_layout.html' %}
+
+{% code %}
+    404
+{% endblock %}
+
+{% error_func %}
+    Forbidden!
+{% endblock %}
+
+{% message %}
+    <p>
+        You're trying to access a page you aren't allowed to view!
+    </p>
+    <p class="help">
+        You can only update/delete your own profile unless you are a staff member!
+    </p>
+    <p class="help">
+        You can also only access the sign up form while logged out.
+    </p>
+{% endblock %}
+
+{% template_code_2 %}
+    404
+{% endblock %}
