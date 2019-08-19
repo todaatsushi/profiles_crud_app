@@ -1,6 +1,7 @@
 version: '3'
 
 services:
+
   db:
     image: postgres
     ports:
@@ -10,6 +11,7 @@ services:
       - POSTGRES_USER=atsushi
       - POSTGRES_PASSWORD=secretpassword
       - ALLOW_IP_RANGE=0.0.0.0/0
+
   web:
     build: .
     command: python manage.py runserver 0.0.0.0:8000
