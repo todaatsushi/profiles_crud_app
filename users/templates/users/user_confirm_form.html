@@ -17,7 +17,7 @@
         <form method="post" class="form-main">
             {% csrf_token %}
             <legend class="title">{% block legend %}{% endblock %}</legend>
-            <input type="submit" value="{% block confirm %}{% endblock %}">
+            <input type="submit" value="{% block confirm %}{% endblock %}" class="button">
             <a href="{% url 'user-detail' user.pk %}" class="button">Cancel</a>
         </form>
     </section>
