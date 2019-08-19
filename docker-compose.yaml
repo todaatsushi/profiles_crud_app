@@ -12,3 +12,6 @@ services:
       - "8000:8000"
     depends_on:
       - db
+    environment:
+      - SECRET_KEY=$SECRET_KEY
+      - DOCKER=$Docker
