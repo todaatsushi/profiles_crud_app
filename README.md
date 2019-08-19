@@ -63,13 +63,6 @@ docker-compose run web python manage.py createsuperuser
 ### .env variables
 * SECRET_KEY - Django secret key
 
-## Deployment
-
-To serve static files make sure [Whitenoise](http://whitenoise.evans.io/en/stable/django.html) is configured properly and run
-```
-python manage.py collectstatic
-```
-
 
 ## Built With
 
