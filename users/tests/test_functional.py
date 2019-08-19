@@ -1,6 +1,7 @@
 from django.test import LiveServerTestCase, tag
 from django.urls import reverse
 from django.contrib.auth import get_user_model
+from django.conf import settings
 
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
@@ -10,12 +11,21 @@ import time
 import socket
 
 
-class ProfilesCRUDFunctionalTests(LiveServerTestCase):
+class FunctionalTestBaseTestCase(LiveServerTestCase):
+    """
+    Base test case class which pre-populates the db with data and
+    also declares the webdriver variable for Docker and non
+    Docker tests.
+    """
+    # Allow external access
     host = '0.0.0.0'
-
+    
     @classmethod
     def setUpClass(cls):
+        print('Set up')
         super().setUpClass()
+
+        # Dummy data
         User = get_user_model()
         cls.user = User.objects.create_user(
             email='jane@mail.com',
@@ -56,63 +66,27 @@ class ProfilesCRUDFunctionalTests(LiveServerTestCase):
             is_superuser=True
         )
 
-        cls.host = socket.gethostbyname(socket.gethostname())
-        cls.browser = webdriver.Remote(
-            command_executor='http://selenium:4444/wd/hub',
-            desired_capabilities=DesiredCapabilities.CHROME,
-        )
-        time.sleep(5)
+        # Make webdriver
+        if settings.DOCKER:
+
+             # Set host to externally accessible web server address
+            cls.host = socket.gethostbyname(socket.gethostname())
+            cls.browser = webdriver.Remote(
+                command_executor='http://selenium:4444/wd/hub',
+                desired_capabilities=DesiredCapabilities.CHROME,
+            )
+        else:
+            cls.browser = webdriver.Chrome(executable_path='./chromedriver')
+        cls.browser.implicitly_wait(3)
 
     @classmethod
     def tearDownClass(cls):
         cls.browser.quit()
         super().tearDownClass()
-    # def setUp(self):
-    #     User = get_user_model()
-    #     self.user = User.objects.create_user(
-    #         email='jane@mail.com',
-    #         username='jane',
-    #         password='foo',
-    #         first_name='Jane',
-    #         last_name='Doe',
-    #         about='Test person',
-    #         company='None',
-    #         role='None',
-    #         responsibilities='None'
-    #     )
 
-    #     self.user2 = User.objects.create_user(
-    #         email='john@mail.com',
-    #         password='foo',
-    #         username='john',
-    #         first_name='John',
-    #         last_name='Doe',
-    #         about='Test person',
-    #         company='None',
-    #         role='None',
-    #         responsibilities='None'
-    #     )
 
-    #     self.staff = User.objects.create_superuser(
-    #         email='staff@mail.com',
-    #         password='foo',
-    #         username='janet',
-    #         first_name='Janet',
-    #         last_name='Doel',
-    #         about='Test person',
-    #         company='None',
-    #         role='None',
-    #         responsibilities='None',
+class ProfilesCRUDFunctionalTestsTestCase(FunctionalTestBaseTestCase):
 
-    #         is_staff=True,
-    #         is_superuser=True
-    #     )
-
-    #     self.browser = webdriver.Firefox()
-
-    # def tearDown(self):
-    #     self.browser.close()
-    
     @tag('functional')
     def test_user_visits_site_to_view_profiles(self):
         """
@@ -120,7 +94,7 @@ class ProfilesCRUDFunctionalTests(LiveServerTestCase):
         users listed. User visists a users profile.
         """
         self.browser.get(self.live_server_url)
-        time.sleep(3)
+        self.browser.implicitly_wait(3)
 
         # Find a user's name in page
         assert 'Janet' in self.browser.page_source
@@ -131,7 +105,7 @@ class ProfilesCRUDFunctionalTests(LiveServerTestCase):
         # Wants to see more about Janet so clicks on her profile
         janet_profile = self.browser.find_element_by_link_text('Janet')
         janet_profile.click()
-        time.sleep(3)
+        self.browser.implicitly_wait(3)
 
         # Sees profile
         assert 'None' in self.browser.page_source
@@ -147,7 +121,7 @@ class ProfilesCRUDFunctionalTests(LiveServerTestCase):
         """
         # Create page
         self.browser.get(self.live_server_url + reverse('user-create'))
-        time.sleep(1)
+        self.browser.implicitly_wait(3)
 
         # Find a user's name in page
         assert 'Create your profile.' in self.browser.page_source
@@ -176,7 +150,7 @@ class ProfilesCRUDFunctionalTests(LiveServerTestCase):
         responsibilities.send_keys('lorem ipsum')
         password1.send_keys('testing321')
         password2.send_keys('testing321')
-        time.sleep(3)
+        self.browser.implicitly_wait(3)
 
         # Submit form
         submit.send_keys(Keys.RETURN)
@@ -184,7 +158,7 @@ class ProfilesCRUDFunctionalTests(LiveServerTestCase):
         # See login page
         assert 'Login' in self.browser.page_source
 
-        time.sleep(3)
+        self.browser.implicitly_wait(3)
         # Message displayed confirms registration
         assert 'Welcome Johnny' in self.browser.page_source
 
@@ -197,7 +171,7 @@ class ProfilesCRUDFunctionalTests(LiveServerTestCase):
         login_password.send_keys('testing321')
         login_submit.send_keys(Keys.RETURN)
 
-        time.sleep(3)
+        self.browser.implicitly_wait(3)
 
         # Nav options should change now that user is logged in
         assert 'Logout' in self.browser.page_source
@@ -208,7 +182,7 @@ class ProfilesCRUDFunctionalTests(LiveServerTestCase):
         # User logs out
         logout = self.browser.find_element_by_link_text('Logout')
         logout.click()
-        time.sleep(3)
+        self.browser.implicitly_wait(3)
 
         # Back home
         assert 'Login' in self.browser.page_source
@@ -224,7 +198,7 @@ class ProfilesCRUDFunctionalTests(LiveServerTestCase):
         self.browser.get(self.live_server_url)
         login = self.browser.find_element_by_link_text('Login')
         login.click()
-        time.sleep(3)
+        self.browser.implicitly_wait(3)
 
         # Login to account
         login_username = self.browser.find_element_by_id('id_username')
@@ -234,18 +208,18 @@ class ProfilesCRUDFunctionalTests(LiveServerTestCase):
         login_username.send_keys('john')
         login_password.send_keys('foo')
         login_submit.send_keys(Keys.RETURN)
-        time.sleep(3)
+        self.browser.implicitly_wait(3)
 
         # Click into own profile
         profile = self.browser.find_element_by_link_text('John')
         profile.click()
-        time.sleep(3)
+        self.browser.implicitly_wait(3)
 
         # Own profile
         assert 'Update your profile' in self.browser.page_source
         update_link = self.browser.find_element_by_link_text('Update your profile')
         update_link.click()
-        time.sleep(3)
+        self.browser.implicitly_wait(3)
 
         # Update page
         assert 'Change your details below.' in self.browser.page_source
@@ -258,7 +232,7 @@ class ProfilesCRUDFunctionalTests(LiveServerTestCase):
 
         company.send_keys('Foo LTD')
         submit.send_keys(Keys.RETURN)
-        time.sleep(3)
+        self.browser.implicitly_wait(3)
 
         assert 'Your profile was updated successfully.' in self.browser.page_source
 
@@ -268,13 +242,13 @@ class ProfilesCRUDFunctionalTests(LiveServerTestCase):
         User John logs into his account and attempts to delete the account and his profile.
         """
         self.browser.get(self.live_server_url)
-        time.sleep(3)
+        self.browser.implicitly_wait(3)
 
         # Find a user's name in page
         assert 'John' in self.browser.page_source
 
         self.browser.get(self.live_server_url + reverse('user-login'))
-        time.sleep(3)
+        self.browser.implicitly_wait(3)
 
         # Login to account
         login_username = self.browser.find_element_by_id('id_username')
@@ -284,24 +258,24 @@ class ProfilesCRUDFunctionalTests(LiveServerTestCase):
         login_username.send_keys('john')
         login_password.send_keys('foo')
         login_submit.send_keys(Keys.RETURN)
-        time.sleep(3)
+        self.browser.implicitly_wait(3)
 
         # Click into own profile
         profile = self.browser.find_element_by_link_text('John')
         profile.click()
-        time.sleep(3)
+        self.browser.implicitly_wait(3)
 
         # Own profile
         assert 'Delete your profile' in self.browser.page_source
         delete_link = self.browser.find_element_by_link_text('Delete your profile')
         delete_link.click()
-        time.sleep(3)
+        self.browser.implicitly_wait(3)
 
         # Confirm delete page
         assert 'Delete User - John Doe' in self.browser.page_source
         submit = self.browser.find_element_by_id('id_submit')
         submit.click()
-        time.sleep(3)
+        self.browser.implicitly_wait(3)
 
         # User not on home page anymore
         assert 'John' not in self.browser.page_source
