@@ -4,7 +4,7 @@ from django.db.models import Q
 
 class CustomBaseUserManager(BaseUserManager):
     """
-    Custom user model manager. No username field,
+    Custom user model manager.
     """
     def create_user(self, email, password, **kwargs):
         """
