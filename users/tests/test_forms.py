@@ -1,4 +1,4 @@
-from django.test import TestCase
+from django.test import TestCase, tag
 from django.contrib.auth import get_user_model
 
 import users.forms as forms
@@ -51,6 +51,8 @@ class BaseUserFormTestCase(TestCase):
 
 
 class BaseUserCreateFormTestCase(BaseUserFormTestCase):
+
+    @tag('unit')
     def test_form_can_validate_data(self):
         valid_form = forms.BaseUserCreateForm(data=self.valid_data)
         self.assertTrue(valid_form.is_valid())
@@ -60,6 +62,7 @@ class BaseUserCreateFormTestCase(BaseUserFormTestCase):
 
 
 class BaseUserUpdateFormTestCase(BaseUserFormTestCase):
+    @tag('unit')
     def test_form_can_validate_data(self):
         valid_form = forms.BaseUserUpdateForm(
             instance=self.user, data=self.valid_data

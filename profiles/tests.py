@@ -1,6 +1,5 @@
-from django.test import TestCase
+from django.test import TestCase, tag
 from django.urls import reverse
-from django.contrib.auth import get_user_model
 
 
 class BasicViewsTestCase(TestCase):
@@ -9,6 +8,8 @@ class BasicViewsTestCase(TestCase):
     of the app:
     - Home
     """
+
+    @tag('unit')
     def test_home_view_redirects(self):
         response = self.client.get(reverse('home'))
         self.assertEqual(response.status_code, 302)

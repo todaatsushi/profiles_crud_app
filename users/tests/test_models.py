@@ -1,8 +1,10 @@
-from django.test import TestCase
+from django.test import TestCase, tag
 from django.contrib.auth import get_user_model
 
 
 class CustomBaseUserManagerTestCase(TestCase):
+    
+    @tag('unit')
     def test_create_user(self):
         """
         Using the custom UserManager, test if we can create a normal user with
@@ -28,6 +30,7 @@ class CustomBaseUserManagerTestCase(TestCase):
         with self.assertRaises(ValueError):
             User.objects.create_user(email='', password='valid')
 
+    @tag('unit')
     def test_create_superuser(self):
         """
         Using the custom UserManager, test if we can create a staff user with valid credentials.
@@ -50,6 +53,7 @@ class CustomBaseUserManagerTestCase(TestCase):
                 is_superuser=False
             )
 
+    @tag('unit')
     def test_get_by_email(self):
         """
         Test manager class's filter method - get_by_email
@@ -61,7 +65,7 @@ class CustomBaseUserManagerTestCase(TestCase):
         query = User.objects.get_by_email('test@mail.com').first()
         self.assertEqual(user, query)
 
-   
+    @tag('unit')
     def test_get_by_name(self):
         """
         Test manager class's filter method - get_by_name

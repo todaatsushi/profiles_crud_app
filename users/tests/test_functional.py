@@ -203,6 +203,7 @@ class ProfilesCRUDFunctionalTests(LiveServerTestCase):
 
         assert 'Your profile was updated successfully.' in self.browser.page_source
 
+    @tag('functional')
     def test_user_can_delete_profile(self):
         """
         User John logs into his account and attempts to delete the account and his profile.

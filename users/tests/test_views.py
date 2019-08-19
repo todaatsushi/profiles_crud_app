@@ -1,4 +1,4 @@
-from django.test import TestCase
+from django.test import TestCase, tag
 from django.urls import reverse
 from django.contrib.auth import get_user_model
 
@@ -55,12 +55,14 @@ class UsersViewsTestCase(TestCase):
         )
 
     # Profile management
+    @tag('unit')
     def test_base_users_list_view_serves_template(self):
         response = self.client.get(reverse('user-list'))
 
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed('users/user_list.html')
 
+    @tag('unit')
     def test_base_user_detail_view_serves_template(self):
         response = self.client.get(reverse('user-detail', kwargs={
             'slug': self.user.username
@@ -69,6 +71,7 @@ class UsersViewsTestCase(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed('users/user_detail.html')
 
+    @tag('unit')
     def test_base_user_create_view_authentication_works(self):
         """
         Test if create view only allows non logged in user
@@ -83,12 +86,14 @@ class UsersViewsTestCase(TestCase):
         forbidden_response = self.client.get(reverse('user-create'))
         self.assertEqual(forbidden_response.status_code, 403)
 
+    @tag('unit')
     def test_base_user_create_view_serves_template(self):
         response = self.client.get(reverse('user-create'))
 
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed('users/user_create.html')
 
+    @tag('unit')
     def test_base_user_update_view_authentication_for_regular_users_work(self):
         """
         Test if users can only update their own profiles.
@@ -112,7 +117,8 @@ class UsersViewsTestCase(TestCase):
             reverse('user-update', kwargs={'slug': self.user.username})
         )
         self.assertEqual(same_user_response.status_code, 200)
-    
+
+    @tag('unit')
     def test_base_user_update_view_authentication_for_staff_users_work(self):
         """
         Test staff users can update any user's profile.
@@ -129,6 +135,7 @@ class UsersViewsTestCase(TestCase):
         )
         self.assertEqual(regular_user_profile_response.status_code, 200)
 
+    @tag('unit')
     def test_base_user_update_view_serves_template(self):
         self.client.force_login(self.user)
 
@@ -136,6 +143,7 @@ class UsersViewsTestCase(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed('users/user_update.html')
 
+    @tag('unit')
     def test_base_user_delete_view_authentication_for_regular_users_work(self):
         """
         Test if users can only delete their own profiles.
@@ -159,7 +167,8 @@ class UsersViewsTestCase(TestCase):
             reverse('user-delete', kwargs={'slug': self.user.username})
         )
         self.assertEqual(same_user_response.status_code, 200)
-    
+
+    @tag('unit')
     def test_base_user_delete_view_authentication_for_staff_users_work(self):
         """
         Test staff users can delete any user's profile.
@@ -177,11 +186,13 @@ class UsersViewsTestCase(TestCase):
         self.assertEqual(regular_user_profile_response.status_code, 200)
 
     # Login/Password management tests
+    @tag('unit')
     def test_base_user_login_serves_template(self):
         response = self.client.get(reverse('user-login'))
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed('users/user_login.html')
 
+    @tag('unit')
     def test_base_user_reset_password_serves_template(self):
         # Make user to reset password
         User = get_user_model()
@@ -197,6 +208,7 @@ class UsersViewsTestCase(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed('users/user_password_change.html')
 
+    @tag('unit')
     def test_base_user_reset_password_authentication(self):
         response = self.client.get(reverse('password-change'))
         self.assertEqual(response.status_code, 302)
