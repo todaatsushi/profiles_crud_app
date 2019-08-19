@@ -85,10 +85,11 @@ if DOCKER:
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.postgresql',
-            'NAME': 'postgres',
-            'USER': 'postgres',
+            'NAME': 'wolf_and_badger',
+            'USER': 'atsushi',
+            'PASSWORD': 'secretpassword',
             'HOST': 'db',
-            'PORT': 5432,
+            'PORT': '5432',
         }
     }
 else:
