@@ -42,23 +42,23 @@
       <div class="navbar-item">
         <div class="buttons">
           {% if user.is_authenticated %}
-            <a href="{% url 'user-detail' user.username %}" class="button">
+            <a href="{% url 'user-detail' user.username %}" class="button" id="view-profile">
               My profile
             </a>
-            <a href="{% url 'user-update' user.username %}" class="button">
+            <a href="{% url 'user-update' user.username %}" class="button" id="update-profile">
               Update profile
             </a>
-            <a href="{% url 'user-delete' user.username %}" class="button">
+            <a href="{% url 'user-delete' user.username %}" class="button" id="delete-profile">
               Delete profile
             </a>
-            <a href="{% url 'user-logout' %}" class="button">
+            <a href="{% url 'user-logout' %}" class="button" id="logout">
               Logout
             </a>
           {% else %}
-            <a href="{% url 'user-create' %}" class="button">
+            <a href="{% url 'user-create' %}" class="button" id="sign-up">
               Sign Up
             </a>
-            <a href="{% url 'user-login' %}" class="button">
+            <a href="{% url 'user-login' %}" class="button" id="login">
               Login
             </a>
           {% endif %}

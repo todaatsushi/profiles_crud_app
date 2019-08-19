@@ -53,8 +53,8 @@
 
         
         <div class="buttons">
-            <input type="submit" value="{% block submit %}{% endblock %}" class="button">
-            <a href="{% url 'user-list' %}" class="button">Cancel</a>
+            <input type="submit" value="{% block submit %}{% endblock %}" id="id_submit" class="button">
+            <a href="{% url 'user-list' %}" class="button" id="id_back">Cancel</a>
             {% block extra %}
             {% endblock %}
         </div>
