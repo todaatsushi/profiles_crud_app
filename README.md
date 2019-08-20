@@ -104,6 +104,10 @@ In your `allauth_fixture.json`, make sure both the SocialApp and Site models sha
 ```
 docker-compose run web python manage.py test
 ```
+
+### Testing with virtualenv
+To test using virtualenv, make sure you have [Chromedriver](https://sites.google.com/a/chromium.org/chromedriver/) installed and placed in your root directory.
+
 For more about testing this app, view the README.md in users/tests.
 
 ### .env variables
