@@ -27,6 +27,8 @@ services:
     environment:
       - SECRET_KEY=$SECRET_KEY
       - DOCKER=True
+      - GITHUB_CLIENT_ID=$GITHUB_CLIENT_ID
+      - GITHUB_CLIENT_SECRET=$GITHUB_CLIENT_SECRET
 
   selenium:
     image: selenium/standalone-chrome-debug:3.7.1
