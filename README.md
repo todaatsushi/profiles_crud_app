@@ -59,9 +59,51 @@ docker-compose run web python manage.py createsuperuser
 - Make a new `Site` on `Django admin`
 - Make a new `Social Application` on `Django admin` using your GitHub application `Client ID` and `Secret Key`.
 
+#### Oauth Testing
+Create fixtures for testing Oauth by creating a fixture using the command below.
+```
+docker-compose run web python manage.py dumpdata --indent 2 --natural-primary --natural-foreign -e contenttypes -e auth.Permission > users/fixtures/allauth_fixture.json
+```
+
+#### IMPORTANT FOR TESTING
+In your `allauth_fixture.json`, make sure both the SocialApp and Site models share the same `id` - which should also be the same one listed in your `settings.py` file.
+
+```
+...
+    {
+        "model": "sites.site",
+        "pk": 1,
+        "fields": {
+            "domain": "localhost",
+            "name": "example.com"
+        }
+        },
+        {
+        "model": "socialaccount.socialapp",
+        "pk": 1,
+        "fields": {
+            "provider": "github",
+            "name": "github",
+            "client_id": "foo",
+            "secret": "bar",
+            "key": "",
+            "sites": [
+            [
+                "localhost"
+            ]
+            ]
+        }
+    },
+...
+```
+
 
 ### .env variables
 * SECRET_KEY - Django secret key
+* GITHUB_CLIENT_ID - App client ID generated in the steps above
+* GITHUB_CLIENT_SECRET - App client secret key generated in the steps above
+* GITHUB_USERNAME - GitHub username for testing
+* GITHUB_PASSWORD - GitHub password for testing
 
 
 ## Built With
