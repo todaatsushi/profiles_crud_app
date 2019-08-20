@@ -6,6 +6,8 @@ Tests in this app are split into four modules:
     - Views
     - Functional
 
+NOTE - If running tests in a virtualenv, make sure you have Chromdriver installed and in the root directory.
+
 ## Forms
 `test_forms.py` tests if both forms in the app can correctly validate data.
 
