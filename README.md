@@ -12,7 +12,7 @@ test functionality for testing.
 
 These instructions will get you a copy of the project up and running on your local machine.
 
-It's recomended that you use Docker to get it running but instructions to run it manually are also included.
+It's recomended that you use Docker to get it running but instructions to run it using virtualenv are also included.
 
 
 ### Installing
@@ -51,24 +51,27 @@ To create a superuser:
 docker-compose run web python manage.py createsuperuser
 ```
 
-### Setting up Oauth
+### Setting up Oauth with Django (GitHub)
 [Complete tutorial](https://wsvincent.com/django-allauth-tutorial/)
 
 #### Quick Summary
 - Make a new application on [GitHub](https://github.com/settings/applications/new)
+- Migrate your database
 - Make a new `Site` on `Django admin`
 - Make a new `Social Application` on `Django admin` using your GitHub application `Client ID` and `Secret Key`.
 
 #### Oauth Testing
 Create fixtures for testing Oauth by creating a fixture using the command below.
+
 ```
 docker-compose run web python manage.py dumpdata --indent 2 --natural-primary --natural-foreign -e contenttypes -e auth.Permission > users/fixtures/allauth_fixture.json
 ```
 
 #### IMPORTANT FOR TESTING
-In your `allauth_fixture.json`, make sure both the SocialApp and Site models share the same `id` - which should also be the same one listed in your `settings.py` file.
+In your `allauth_fixture.json`, make sure both the SocialApp and Site models share the same `id` - this should also be the same one listed in your `settings.py` file as your `SITE_ID`.
 
 ```
+# allauth_fixture.json
 ...
     {
         "model": "sites.site",
