@@ -15,8 +15,8 @@ These instructions will get you a copy of the project up and running on your loc
 It's recomended that you use Docker to get it running but instructions to run it using virtualenv are also included.
 
 
-### Installing
-## Docker
+## Installing
+### Docker
 To build:
 ```
 docker-compose build
@@ -27,7 +27,7 @@ To run:
 docker-compose up
 ```
 
-## Virtualenv
+### Virtualenv
 
 Using a virtual environment, install dependencies with:
 ```
@@ -41,7 +41,7 @@ python manage.py runserver
 
 ### Remove `docker-compose run web` from all ensuing commmands if using virtualenv
 
-### Setting up backend
+## Setting up backend
 To initialise the database, run:
 ```
 docker-compose run web python manage.py migrate
@@ -55,13 +55,13 @@ docker-compose run web python manage.py createsuperuser
 ### Setting up Oauth with Django (GitHub)
 [Complete tutorial](https://wsvincent.com/django-allauth-tutorial/)
 
-#### Quick Summary
+##### Quick Summary
 - Make a new application on [GitHub](https://github.com/settings/applications/new)
 - Migrate your database
 - Make a new `Site` on `Django admin`
 - Make a new `Social Application` on `Django admin` using your GitHub application `Client ID` and `Secret Key`.
 
-#### Oauth Testing
+##### Oauth Testing
 Create fixtures for testing Oauth by creating a fixture using the command below.
 
 ```
