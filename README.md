@@ -39,6 +39,7 @@ To run:
 python manage.py runserver
 ```
 
+### Remove `docker-compose run web` from all ensuing commmands if using virtualenv
 
 ### Setting up backend
 To initialise the database, run:
