@@ -41,6 +41,11 @@ INSTALLED_APPS = [
 # all-auth
 SITE_ID = 1
 
+# Testing all-auth
+FIXTURE_DIRS = (
+    os.path.join(BASE_DIR, '/users/fixtures'),
+)
+
 # No confirmation email sent
 ACCOUNT_EMAIL_VERIFICATION = 'none'
 
