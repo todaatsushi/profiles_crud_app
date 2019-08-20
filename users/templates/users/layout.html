@@ -35,7 +35,7 @@
       <div class="navbar-item">
         {% if user.is_authenticated %}
           <h1 class="subtitle">
-              Welcome {{ user.first_name }}!
+              {% if user.first_name %}Welcome {{ user.first_name }}!{% else %}Create your profile ->{% endif %}
           </h1>
         {% endif %}
       </div>
