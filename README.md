@@ -61,6 +61,12 @@ docker-compose run web python manage.py createsuperuser
 - Make a new `Site` on `Django admin`
 - Make a new `Social Application` on `Django admin` using your GitHub application `Client ID` and `Secret Key`.
 
+### Static files
+To load static files to use the admin page, run:
+```
+docker-compose run web python manage.py collectstatic
+```
+
 ##### Oauth Testing
 Create fixtures for testing Oauth by creating a fixture using the command below.
 
