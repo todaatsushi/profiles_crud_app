@@ -26,5 +26,4 @@ class IsLoggedOutTestMixin(UserPassesTestMixin):
         User = get_user_model()
         all_users = User.objects.all()
 
-        flag = False if self.request.user in all_users else True
-        return flag
+        return False if self.request.user in all_users else True

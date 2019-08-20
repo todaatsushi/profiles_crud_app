@@ -25,6 +25,6 @@ urlpatterns = [
     ),
     path('password/password-change/done/',
             av.PasswordChangeDoneView.as_view(template_name='users/user_password_change_done.html'),
-            name='password-change-done'
+            name='password_change_done'
     ),
 ]
