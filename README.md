@@ -100,7 +100,11 @@ In your `allauth_fixture.json`, make sure both the SocialApp and Site models sha
     },
 ...
 ```
-
+## Testing
+```
+docker-compose run web python manage.py test
+```
+For more about testing this app, view the README.md in users/tests.
 
 ### .env variables
 * SECRET_KEY - Django secret key
