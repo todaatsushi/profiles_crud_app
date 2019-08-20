@@ -29,6 +29,8 @@ services:
       - DOCKER=True
       - GITHUB_CLIENT_ID=$GITHUB_CLIENT_ID
       - GITHUB_CLIENT_SECRET=$GITHUB_CLIENT_SECRET
+      - GITHUB_USERNAME=$GITHUB_USERNAME
+      - GITHUB_PASSWORD=$GITHUB_PASSWORD
 
   selenium:
     image: selenium/standalone-chrome-debug:3.7.1
