@@ -8,10 +8,8 @@ from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 
-import time
 import socket
 import os
-import allauth.socialaccount.models as all_auth_models
 
 
 class FunctionalTestBaseTestCase(LiveServerTestCase):
@@ -46,10 +44,10 @@ class FunctionalTestBaseTestCase(LiveServerTestCase):
         super().tearDownClass()
 
 
-@override_settings(DEBUG=True)
+# @override_settings(DEBUG=True)
 class ProfilesCRUDFunctionalTestsTestCase(FunctionalTestBaseTestCase):
 
-    fixtures = ['allauth_fixture', 'functional_users']
+    fixtures = ['allauth_fixture', 'users_functional']
 
     @tag('functional')
     def test_user_visits_site_to_view_profiles(self):
@@ -59,7 +57,6 @@ class ProfilesCRUDFunctionalTestsTestCase(FunctionalTestBaseTestCase):
         """
 
         self.browser.get(self.live_server_url)
-        time.sleep(2)
 
         # Find a user's name in page
         assert 'Janet' in self.browser.page_source
@@ -70,7 +67,6 @@ class ProfilesCRUDFunctionalTestsTestCase(FunctionalTestBaseTestCase):
         # Wants to see more about Janet so clicks on her profile
         janet_profile = self.browser.find_element_by_link_text('Janet')
         janet_profile.click()
-        time.sleep(2)
 
         # Sees profile
         assert 'None' in self.browser.page_source
@@ -87,7 +83,6 @@ class ProfilesCRUDFunctionalTestsTestCase(FunctionalTestBaseTestCase):
 
         # Create page
         self.browser.get(self.live_server_url + reverse('user-create'))
-        time.sleep(2)
 
         # Find a user's name in page
         assert 'Create your profile.' in self.browser.page_source
@@ -116,7 +111,6 @@ class ProfilesCRUDFunctionalTestsTestCase(FunctionalTestBaseTestCase):
         responsibilities.send_keys('lorem ipsum')
         password1.send_keys('testing321')
         password2.send_keys('testing321')
-        time.sleep(2)
 
         # Submit form
         submit.send_keys(Keys.RETURN)
@@ -124,7 +118,6 @@ class ProfilesCRUDFunctionalTestsTestCase(FunctionalTestBaseTestCase):
         # See login page
         assert 'Login' in self.browser.page_source
 
-        time.sleep(2)
         # Message displayed confirms registration
         assert 'Welcome Johnny' in self.browser.page_source
 
@@ -137,7 +130,6 @@ class ProfilesCRUDFunctionalTestsTestCase(FunctionalTestBaseTestCase):
         login_password.send_keys('testing321')
         login_submit.send_keys(Keys.RETURN)
 
-        time.sleep(2)
 
         # Nav options should change now that user is logged in
         assert 'Logout' in self.browser.page_source
@@ -148,7 +140,6 @@ class ProfilesCRUDFunctionalTestsTestCase(FunctionalTestBaseTestCase):
         # User logs out
         logout = self.browser.find_element_by_link_text('Logout')
         logout.click()
-        time.sleep(2)
 
         # Back home
         assert 'Login' in self.browser.page_source
@@ -164,7 +155,6 @@ class ProfilesCRUDFunctionalTestsTestCase(FunctionalTestBaseTestCase):
         self.browser.get(self.live_server_url)
         login = self.browser.find_element_by_link_text('Login')
         login.click()
-        time.sleep(2)
 
         # Login to account
         login_username = self.browser.find_element_by_id('id_username')
@@ -174,18 +164,15 @@ class ProfilesCRUDFunctionalTestsTestCase(FunctionalTestBaseTestCase):
         login_username.send_keys('john')
         login_password.send_keys('foo')
         login_submit.send_keys(Keys.RETURN)
-        time.sleep(2)
 
         # Click into own profile
         profile = self.browser.find_element_by_link_text('John')
         profile.click()
-        time.sleep(2)
 
         # Own profile
         assert 'Update your profile' in self.browser.page_source
         update_link = self.browser.find_element_by_link_text('Update your profile')
         update_link.click()
-        time.sleep(2)
 
         # Update page
         assert 'Change your details below.' in self.browser.page_source
@@ -198,7 +185,6 @@ class ProfilesCRUDFunctionalTestsTestCase(FunctionalTestBaseTestCase):
 
         company.send_keys('Foo LTD')
         submit.send_keys(Keys.RETURN)
-        time.sleep(2)
 
         assert 'Your profile was updated successfully.' in self.browser.page_source
 
@@ -208,13 +194,11 @@ class ProfilesCRUDFunctionalTestsTestCase(FunctionalTestBaseTestCase):
         User John logs into his account and attempts to delete the account and his profile.
         """
         self.browser.get(self.live_server_url)
-        time.sleep(2)
 
         # Find a user's name in page
         assert 'John' in self.browser.page_source
 
         self.browser.get(self.live_server_url + reverse('user-login'))
-        time.sleep(2)
 
         # Login to account
         login_username = self.browser.find_element_by_id('id_username')
@@ -224,58 +208,23 @@ class ProfilesCRUDFunctionalTestsTestCase(FunctionalTestBaseTestCase):
         login_username.send_keys('john')
         login_password.send_keys('foo')
         login_submit.send_keys(Keys.RETURN)
-        time.sleep(2)
 
         # Click into own profile
         profile = self.browser.find_element_by_link_text('John')
         profile.click()
-        time.sleep(2)
 
         # Own profile
         assert 'Delete your profile' in self.browser.page_source
         delete_link = self.browser.find_element_by_link_text('Delete your profile')
         delete_link.click()
-        time.sleep(2)
 
         # Confirm delete page
         assert 'Delete User - John Doe' in self.browser.page_source
         submit = self.browser.find_element_by_id('id_submit')
         submit.click()
-        time.sleep(2)
 
         # User not on home page anymore
         assert 'John' not in self.browser.page_source
-
-    @tag('functional')
-    def test_user_can_sign_up_and_in_using_github(self):
-
-        # Make sure SocialApp object exists
-        github_app = all_auth_models.SocialApp.objects.first()
-        self.assertIsInstance(github_app, all_auth_models.SocialApp)
-        self.assertEqual(github_app.sites.first().id, github_app.id)
-        
-        # Go to sign up
-        self.browser.get(self.live_server_url + reverse('user-create'))
-        time.sleep(2)
-
-        # Select option to sign into GitHub
-        all_auth_sign_up = self.browser.find_element_by_link_text('Sign up with GitHub')
-        all_auth_sign_up.click()
-        time.sleep(2)
-
-        assert 'Sign in to GitHub' in self.browser.page_source
-
-        # Sign into GitHub account
-        username = self.browser.find_element_by_id('login_field')
-        password = self.browser.find_element_by_id('password')
-
-        username.send_keys(os.environ.get('GITHUB_USERNAME').replace("\"", ''))
-        password.send_keys(os.environ.get('GITHUB_PASSWORD').replace("\"", ''))
-
-        self.browser.find_element_by_name('commit').click()
-        time.sleep(15)
-
-        assert 'Welcome' in self.browser.page_source
 
     @tag('functional')
     def test_user_can_change_their_password(self):
@@ -297,7 +246,6 @@ class ProfilesCRUDFunctionalTestsTestCase(FunctionalTestBaseTestCase):
         self.browser.find_element_by_link_text('Change password').click()
 
         assert "Are you sure that you'd like to change your password?" in self.browser.page_source
-        time.sleep(2)
 
         old_password = self.browser.find_element_by_name('old_password')
         new_password1 = self.browser.find_element_by_name('new_password1')
@@ -309,6 +257,5 @@ class ProfilesCRUDFunctionalTestsTestCase(FunctionalTestBaseTestCase):
         new_password2.send_keys('testing321')
 
         self.browser.find_element_by_id('id_submit').click()
-        time.sleep(5)
 
         assert 'Success!' in self.browser.page_source
