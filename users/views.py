@@ -28,7 +28,7 @@ class BaseUserCreateView(SuccessMessageMixin, auth_mixins.IsLoggedOutTestMixin,
     model = BaseUser
     template_name = 'users/user_create.html'
     form_class = forms.BaseUserCreateForm
-    success_message = 'Welcome %(first_name)s to the site! Please login.'
+    success_message = 'Welcome %(first_name)s to the site! Please login and update your profile.'
     success_url = '/user/auth/login/'
 
 
