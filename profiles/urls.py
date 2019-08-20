@@ -10,5 +10,5 @@ urlpatterns = [
     path('user/', include('users.urls')),
 
     # All auth
-    path('auth/', include('allauth.urls')),
+    path('oauth/', include('allauth.urls')),
 ]
