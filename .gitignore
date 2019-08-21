@@ -1,0 +1,10 @@
+__pycache__/
+.vscode
+.env
+*.sqlite3
+geckodriver.log
+wabenv/
+geckodriver
+chromedriver
+chromedriver.log
+allauth_fixture.json
