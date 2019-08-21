@@ -16,32 +16,22 @@ It's recomended that you use Docker to get it running but instructions to run it
 
 
 ## Installing
-### Docker
+#### Docker
 To build:
 ```
 docker-compose build
 ```
 
-To run:
-```
-docker-compose up
-```
-
-### Virtualenv
+#### Virtualenv
 
 Using a virtual environment, install dependencies with:
 ```
 pip install -r requirements.txt
 ```
 
-To run:
-```
-python manage.py runserver
-```
-
 ### Remove `docker-compose run web` from all ensuing commmands if using virtualenv
 
-## Setting up backend
+### Setting up backend
 To initialise the database, run:
 ```
 docker-compose run web python manage.py migrate
@@ -52,27 +42,55 @@ To create a superuser:
 docker-compose run web python manage.py createsuperuser
 ```
 
-### Setting up Oauth with Django (GitHub)
+#### Setting up Oauth with Django (GitHub)
 
 * [django-allauth docs](https://django-allauth.readthedocs.io/en/latest/)
 
-##### Quick Summary
+###### Quick Summary
 * Make a new application on [GitHub](https://github.com/settings/applications/new).
     * NOTE: Authorization callback URL should be http://127.0.0.1:8000/**oauth**/github/login/callback/.
     * Replace 127.0.0.1/localhost with domain if not runnning locally.
 * Migrate your database.
-* Make a new `Site` in `Django admin`. Domain should be 'localhost' if runnning locally.
-* Make a new `Social Application` on `Django admin` using your GitHub application `Client ID` and `Secret Key`.
+* Go to Django admin (/admin):
+    * Make a new `Site` in `Django admin`. Domain should be 'localhost' if runnning locally.
+    * Make a new `Social Application` on `Django admin` using your GitHub application `Client ID` and `Secret Key`.
 
 Refer to this [tutorial](https://wsvincent.com/django-allauth-tutorial/) for more clarity.
 
-### Static files
+In case of errors, re-run `docker-compose build` and run the server.
+
+#### Static files
 To load static files to use the admin page, run:
 ```
 docker-compose run web python manage.py collectstatic
 ```
 
-##### Oauth Testing
+## Testing
+```
+docker-compose run web python manage.py test
+```
+
+### Testing with virtualenv
+To test using virtualenv, make sure you have [Chromedriver](https://sites.google.com/a/chromium.org/chromedriver/) or [Geckodriver](https://github.com/mozilla/geckodriver/releases) installed and placed in your root directory.
+
+The default driver is Firefox but you can uncomment line 47/48 in `test_functional.py` to select either one.
+
+For more about testing this app, view the README.md in users/tests.
+
+### .env variables
+* SECRET_KEY - Django secret key.
+* For testing purposes only:
+    * GITHUB_CLIENT_ID - App client ID generated in the steps above.
+    * GITHUB_CLIENT_SECRET - App client secret key generated in the steps above.
+    * GITHUB_USERNAME - GitHub username for testing.
+    * GITHUB_PASSWORD - GitHub password for testing.
+
+When using virtualenv, set .env with
+```
+set -a; source .env; set +a;
+```
+
+###### Oauth Testing
 Create fixtures for testing Oauth by creating a fixture using the command below.
 
 ```
@@ -110,27 +128,6 @@ In your `allauth_fixture.json`, make sure both the SocialApp and Site models sha
         }
     },
 ...
-```
-## Testing
-```
-docker-compose run web python manage.py test
-```
-
-### Testing with virtualenv
-To test using virtualenv, make sure you have [Chromedriver](https://sites.google.com/a/chromium.org/chromedriver/) installed and placed in your root directory.
-
-For more about testing this app, view the README.md in users/tests.
-
-### .env variables
-* SECRET_KEY - Django secret key.
-* GITHUB_CLIENT_ID - App client ID generated in the steps above.
-* GITHUB_CLIENT_SECRET - App client secret key generated in the steps above.
-* GITHUB_USERNAME - GitHub username for testing.
-* GITHUB_PASSWORD - GitHub password for testing.
-
-When using virtualenv, set .env with
-```
-set -a; source .env; set +a;
 ```
 
 ## Built With
