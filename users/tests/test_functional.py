@@ -44,8 +44,8 @@ class FunctionalTestBaseTestCase(LiveServerTestCase):
                 desired_capabilities=DesiredCapabilities.CHROME,
             )
         else:
-            # cls.browser = webdriver.Chrome(executable_path='./chromedriver')
-            cls.browser = webdriver.Firefox(executable_path='./geckodriver')
+            cls.browser = webdriver.Chrome(executable_path='./chromedriver')
+            # cls.browser = webdriver.Firefox(executable_path='./geckodriver')
 
         cls.browser.implicitly_wait(3)
 
