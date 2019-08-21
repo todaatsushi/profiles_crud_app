@@ -123,6 +123,11 @@ For more about testing this app, view the README.md in users/tests.
 * GITHUB_USERNAME - GitHub username for testing
 * GITHUB_PASSWORD - GitHub password for testing
 
+When using virtualenv, set .env with
+```
+set -a; source .env; set +a;
+```
+
 ## Built With
 
 * [Django](https://docs.djangoproject.com/en/2.2/) - The web framework used
