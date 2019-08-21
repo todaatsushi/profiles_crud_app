@@ -303,3 +303,51 @@ class ProfilesCRUDFunctionalTestsTestCase(FunctionalTestBaseTestCase):
 
         assert 'Success!' in self.browser.page_source
 
+    @tag('functional')
+    def test_user_can_sign_up_and_in_using_github(self):
+
+        # Make sure SocialApp object exists
+        github_app = all_auth_models.SocialApp.objects.first()
+        self.assertIsInstance(github_app, all_auth_models.SocialApp)
+        self.assertEqual(github_app.sites.first().id, github_app.id)
+        
+        # Go to sign up
+        self.browser.get(self.live_server_url + reverse('user-create'))
+
+        # Select option to sign into GitHub
+        all_auth_sign_up = self.browser.find_element_by_link_text('Sign up with GitHub')
+        all_auth_sign_up.click()
+
+        wait_for_page_load()
+
+        assert 'Sign in to GitHub' in self.browser.page_source
+
+        # Sign into GitHub account
+        username = self.browser.find_element_by_id('login_field')
+        password = self.browser.find_element_by_id('password')
+
+        username.send_keys(os.environ.get('GITHUB_USERNAME').replace("\"", ''))
+        password.send_keys(os.environ.get('GITHUB_PASSWORD').replace("\"", ''))
+
+        self.browser.find_element_by_name('commit').click()
+
+        wait_for_page_load()
+
+        assert 'Welcome' in self.browser.page_source
+
+        # User logs out
+        logout = self.browser.find_element_by_link_text('Logout')
+        logout.click()
+        
+        wait_for_page_load()
+
+        # Login with GitHub account
+        self.browser.find_element_by_link_text('Login').click()
+        
+        wait_for_page_load()
+
+        self.browser.find_element_by_link_text('Login with GitHub').click()
+
+        wait_for_page_load()
+
+        assert 'Successfully signed in as' in self.browser.page_source
