@@ -53,8 +53,9 @@ docker-compose run web python manage.py createsuperuser
 ```
 
 ### Setting up Oauth with Django (GitHub)
-[Complete tutorial](https://wsvincent.com/django-allauth-tutorial/)
-[django-allauth docs](https://django-allauth.readthedocs.io/en/latest/)
+
+* [Complete tutorial](https://wsvincent.com/django-allauth-tutorial/)
+* [django-allauth docs](https://django-allauth.readthedocs.io/en/latest/)
 
 ##### Quick Summary
 - Make a new application on [GitHub](https://github.com/settings/applications/new)
