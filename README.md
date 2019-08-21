@@ -133,7 +133,7 @@ In your `allauth_fixture.json`, make sure both the SocialApp and Site models sha
 ## Running the app
 Docker:
 ```
-docker-compose up
+docker-compose up --build
 ```
 
 Virtualenv:
