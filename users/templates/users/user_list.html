@@ -17,7 +17,11 @@
         {% for profile in users %}
             <section class="column is-one-quarter">
                 <a href="{% url 'user-detail' profile.username %}">
-                    {{ profile.first_name }}
+                    {% if profile.first_name %}
+                        {{ profile.first_name }}
+                    {% else %}
+                        Unnamed User
+                    {% endif %}
                 </a>
             </section>
         {% endfor %}
