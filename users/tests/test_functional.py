@@ -48,7 +48,7 @@ class FunctionalTestBaseTestCase(LiveServerTestCase):
 # @override_settings(DEBUG=True)
 class ProfilesCRUDFunctionalTestsTestCase(FunctionalTestBaseTestCase):
 
-    fixtures = ['allauth_fixture', 'users_functional']
+    fixtures = ['users_functional']
 
     @tag('functional')
     def test_user_visits_site_to_view_profiles(self):
