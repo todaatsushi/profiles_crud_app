@@ -54,14 +54,14 @@ docker-compose run web python manage.py createsuperuser
 
 ### Setting up Oauth with Django (GitHub)
 
-* [Complete tutorial](https://wsvincent.com/django-allauth-tutorial/)
 * [django-allauth docs](https://django-allauth.readthedocs.io/en/latest/)
 
 ##### Quick Summary
-- Make a new application on [GitHub](https://github.com/settings/applications/new)
-- Migrate your database
-- Make a new `Site` on `Django admin`
-- Make a new `Social Application` on `Django admin` using your GitHub application `Client ID` and `Secret Key`.
+* Make a new application on [GitHub](https://github.com/settings/applications/new)
+    * NOTE: Authorization callback URL should be http://127.0.0.1:8000/**oauth**/github/login/callback/
+* Migrate your database
+* Make a new `Site` in `Django admin`. Domain should be 'localhost' if runnning locally.
+* Make a new `Social Application` on `Django admin` using your GitHub application `Client ID` and `Secret Key`.
 
 ### Static files
 To load static files to use the admin page, run:
