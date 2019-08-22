@@ -4,7 +4,7 @@
 This app allows users to create, retrieve, update and delete their information/profiles onto the site with the purpose
 of showing off their professional skills. Using Oauth, users can also have a profile using their GitHub accounts.
 
-Built with Django and PostgreSQL or Sqlite3 as the database. The app also uses Docker for deployment, Selenium & Django's
+Built with Django and PostgreSQL as the database. The app also uses Docker for deployment, Selenium & Django's
 test functionality for testing.
 
 
