@@ -130,6 +130,17 @@ In your `allauth_fixture.json`, make sure both the SocialApp and Site models sha
 ...
 ```
 
+## Running the app
+Docker:
+```
+docker-compose up --build
+```
+
+Virtualenv:
+```
+python manage.py runserver
+```
+
 ## Built With
 
 * [Django](https://docs.djangoproject.com/en/2.2/) - The web framework used
