@@ -92,7 +92,7 @@ if DOCKER:
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.postgresql',
-            'NAME': 'wolf_and_badger',
+            'NAME': 'profiles',
             'USER': 'atsushi',
             'PASSWORD': 'secretpassword',
             'HOST': 'db',
