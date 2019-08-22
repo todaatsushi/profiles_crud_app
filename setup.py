@@ -12,7 +12,7 @@ import set_up.make_env
 import subprocess
 
 
-    # Create dataabases
+# Create dataabases
 subprocess.run(["python", "manage.py", "migrate"])
 
 
@@ -27,6 +27,9 @@ while testing not in ['yes', 'no']:
 if testing == 'yes':
     subprocess.run(["python", "manage.py", "test", "-v", "2"])
 
+
+# Create static files
+subprocess.run(["python", "manage.py", "collectstatic"])
 
 # Create superuser
 superuser = ''
