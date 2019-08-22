@@ -3,20 +3,20 @@ Sets up all-auths Site and Social Application model instances to set up the proj
 
 Using user inputs for the GitHub Oauth client id and secret, this automates creating them for
 the app.
+
+Also generates the secret key and appends to .env
 """
-print('Setting up Oauth.\n')
-
-import os, sys
-import json
-
-print(os.environ.get("SECRET_KEY"))
-sys.path.append('/profiles/settings.py')
-os.environ['DJANGO_SETTINGS_MODULE'] = 'profiles.settings'
-
+import os, sys, json
 import django
+
+
+sys.path.append('/profiles/settings.py')
 django.setup()
 
 from django.core.management import call_command
+
+
+print('Setting up Oauth.\n')
 
 # Data for social apps
 auth_models = [
@@ -47,8 +47,9 @@ auth_models = [
 ]
 
 # Write to json
-with open('users/fixtures/allauth_fixture.json', 'w') as outfile:
-    json.dump(auth_models, outfile)
+with open('users/fixtures/allauth_fixture.json', 'w') as json_file:
+    json.dump(auth_models, json_file)
+    json_file.close()
 
 # Load to db
 call_command('loaddata', 'allauth_fixture.json', verbosity=0)

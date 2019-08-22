@@ -2,46 +2,52 @@
 Generate an .env file and set env variables.
 """
 
-import os
-import uuid
+import os, uuid
 
-testing = ''
-while testing not in ['yes', 'no']:
-    testing = input('Do you want to run the Oauth test? ("yes" or "no"): ').replace("\"", '')
+
+def write_to_env(env_field, message='', input_required=True, default_value=''):
+    """
+    Writes to the .env file with the format:
+    'env_field="env_value"'
+
+    Inputs:
+        - env_field - capitalised string
+        - message - string:  the message to display to the user.
+        - input_required - bool: if user is needed for env_field, prompts input.
+        - default_value - any: if not input_required, the value to add.
+    """
+
+    with open('.env', 'a') as env:
+        env_value = input(message) if input_required else default_value
+        env.write('{}={}\n'.format(env_field, env_value))
+        os.environ[env_field] = env_value
+        f.close()
+
 
 print('Generating your .env file!\n')
 
-# Write .env
-f = open('.env', 'w')
+# GitHub Oauth settings
+write_to_env('GITHUB_CLIENT_ID', 'GitHub Oauth app client ID: ')
+write_to_env('GITHUB_CLIENT_SECRET', 'GitHub Oauth app client secret: ')
 
-# Github Oauth settings
-client_id = input("GitHub Oauth app client ID: ").replace("\"", '')
-client_secret = input("GitHub Oauth app client secret: ").replace("\"", '')
-f.write('GITHUB_CLIENT_ID="{}"\n'.format(client_id))
-f.write('GITHUB_CLIENT_SECRET="{}"\n'.format(client_secret))
 
-# set variables
-os.environ.setdefault('GITHUB_CLIENT_ID', client_id)
-os.environ.setdefault('GITHUB_CLIENT_SECRET', client_secret)
+# Oauth test details
+need_github_login = ''
+while need_github_login not in ['yes', 'no']:
+    need_github_login = input(
+        'Do you want to run the Oauth functional test? ("yes" or "no"): '
+    ).replace("\"", '')
 
-if testing == 'yes':
-    # Github logins
-    github_username = input("GitHub username: ").replace("\"", '')
-    github_password = input("GitHub password: ").replace("\"", '')
-    f.write('GITHUB_USERNAME="{}"\n'.format(client_id))
-    f.write('GITHUB_PASSWORD="{}"\n'.format(client_secret))
-    os.environ.setdefault('GITHUB_USERNAME', github_username)
-    os.environ.setdefault('GITHUB_PASSWORD', github_password)
+if need_github_login == 'yes':
+    write_to_env('GITHUB_USERNAME', 'GitHub username: ')
+    write_to_env('GITHUB_PASSWORD', 'GitHub password: ')
 
-# Django settings
-# Secret Key
-key = uuid.uuid4().hex
-f.write('SECRET_KEY="{}"\n'.format(key))
-os.environ.setdefault('SECRET_KEY', key)
-print(os.environ.get('SECRET_KEY'))
 
-f.write('DJANGO_SETTINGS_MODULE="{}"\n'.format('profiles.settings'))
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'profiles.settings')
+# Settings module
+write_to_env('DJANGO_SETTINGS_MODULE', input_required=False,
+             default_value='profiles.settings')
 
-f.close()
-print('\n.env file done and set!\n')
+# Secret key
+write_to_env('SECRET_KEY', input_required=False, default_value=uuid.uuid4().hex)
+
+print('.env file done and set!\n')
