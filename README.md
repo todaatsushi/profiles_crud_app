@@ -1,5 +1,5 @@
 
-# Wolf & Badger CRUD app
+# Profiles CRUD app
 
 This app allows users to create, retrieve, update and delete their information/profiles onto the site with the purpose
 of showing off their professional skills. Using Oauth, users can also have a profile using their GitHub accounts.
