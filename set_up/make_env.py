@@ -9,7 +9,7 @@ testing = ''
 while testing not in ['yes', 'no']:
     testing = input('Do you want to run the Oauth test? ("yes" or "no"): ').replace("\"", '')
 
-print('\nGenerating your .env file!\n')
+print('Generating your .env file!\n')
 
 # Write .env
 f = open('.env', 'w')
@@ -38,6 +38,7 @@ if testing == 'yes':
 key = uuid.uuid4().hex
 f.write('SECRET_KEY="{}"\n'.format(key))
 os.environ.setdefault('SECRET_KEY', key)
+print(os.environ.get('SECRET_KEY'))
 
 f.write('DJANGO_SETTINGS_MODULE="{}"\n'.format('profiles.settings'))
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'profiles.settings')
