@@ -21,7 +21,7 @@ def write_to_env(env_field, message='', input_required=True, default_value=''):
         env_value = input(message) if input_required else default_value
         env.write('{}={}\n'.format(env_field, env_value))
         os.environ[env_field] = env_value
-        f.close()
+        env.close()
 
 
 print('Generating your .env file!\n')

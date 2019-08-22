@@ -3,7 +3,8 @@ Make a .env and set up Oauth.
 """
 
 # Set up all auth.
-print("This is a script to set up the CRUD app's Oauth login through GitHub.\n")
+print("This is a script to set up the CRUD app.\n")
+print("This will set up Oauth with GitHub, static files, database migration, superuser and the .env file.")
 print("Please make sure you have a GitHub Oauth application and the client id and secret keys.")
 print("You can make an Oauth application here: https://github.com/settings/applications/new.\n\n")
 
