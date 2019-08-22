@@ -7,7 +7,7 @@ services:
     ports:
       - 5432:5432
     environment:
-      - POSTGRES_DB=wolf_and_badger
+      - POSTGRES_DB=profiles
       - POSTGRES_USER=atsushi
       - POSTGRES_PASSWORD=secretpassword
       - ALLOW_IP_RANGE=0.0.0.0/0
