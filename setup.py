@@ -11,7 +11,6 @@ print("You can make an Oauth application here: https://github.com/settings/appli
 # Make .env file
 import set_up.make_env
 import subprocess, os
-print(os.environ.get('SECRET_KEY'))
 
 # Create dataabases
 subprocess.run(["python", "manage.py", "migrate"])
