@@ -18,9 +18,7 @@ django.setup()
 
 from django.core.management import call_command
 
-# from allauth.socialaccount.models import SocialApp
-
-
+# Data for social apps
 auth_models = [
     {
         "model": "sites.site",
@@ -47,28 +45,6 @@ auth_models = [
         }
     }
 ]
-print('Created JSON with data.\n', auth_models)
-
-# app = SocialApp.objects.create(
-#     pk=auth_models['app']['pk']
-#     provider=auth_models['app']['fields']['provider'],
-#     name=auth_models['app']['fields']['name'],
-#     client_id=auth_models['app']['fields']['client_id'],
-#     secret=auth_models['app']['fields']['secret'],
-#     key=auth_models['app']['fields']['key'],
-# )
-# site = app.sites.create(
-#     domain='localhost',
-#     name='local'
-# )
-
-# if app and site:
-#     print('Success!')
-# else:
-#     if not app:
-#         print('The app object was not created properly.')
-#     if not site:
-#         print('The site object was not created properly')
 
 # Write to json
 with open('users/fixtures/allauth_fixture.json', 'w') as outfile:
@@ -77,8 +53,8 @@ with open('users/fixtures/allauth_fixture.json', 'w') as outfile:
 # Load to db
 call_command('loaddata', 'allauth_fixture.json', verbosity=0)
 
+# Check if loaded
 from allauth.socialaccount.models import SocialApp
-print('Loaded JSON!\n', SocialApp.objects.first().name)
 
 if not SocialApp.objects.first().name is not 'github':
     raise ImportError('SocialApp was not created properly - please implement manually using Django admin.')
