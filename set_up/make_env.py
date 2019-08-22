@@ -7,7 +7,7 @@ import uuid
 
 testing = ''
 while testing not in ['yes', 'no']:
-    testing = input('Do you want to run the Oauth test? ("yes" or "no"): ')
+    testing = input('Do you want to run the Oauth test? ("yes" or "no"): ').replace("\"", '')
 
 print('\nGenerating your .env file!\n')
 
@@ -15,8 +15,8 @@ print('\nGenerating your .env file!\n')
 f = open('.env', 'w')
 
 # Github Oauth settings
-client_id = input("GitHub Oauth app client ID: ")
-client_secret = input("GitHub Oauth app client secret: ")
+client_id = input("GitHub Oauth app client ID: ").replace("\"", '')
+client_secret = input("GitHub Oauth app client secret: ").replace("\"", '')
 f.write('GITHUB_CLIENT_ID="{}"\n'.format(client_id))
 f.write('GITHUB_CLIENT_SECRET="{}"\n'.format(client_secret))
 
@@ -26,8 +26,8 @@ os.environ.setdefault('GITHUB_CLIENT_SECRET', client_secret)
 
 if testing == 'yes':
     # Github logins
-    github_username = input("GitHub username: ")
-    github_password = input("GitHub password: ")
+    github_username = input("GitHub username: ").replace("\"", '')
+    github_password = input("GitHub password: ").replace("\"", '')
     f.write('GITHUB_USERNAME="{}"\n'.format(client_id))
     f.write('GITHUB_PASSWORD="{}"\n'.format(client_secret))
     os.environ.setdefault('GITHUB_USERNAME', github_username)
