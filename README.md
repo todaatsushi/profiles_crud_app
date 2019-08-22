@@ -18,7 +18,7 @@ $ docker-compose build
 ```
 
 ### Oauth with GitHub
-To be able to let users sign into the app with their GitHub accounts, you will need a Oauth application set up on GitHub [here](https://github.com/settings/applications/new).
+Before running the script to set up the app, you will need a client ID and secret key for a GitHub Oauth app.You can set one up on GitHub [here](https://github.com/settings/applications/new). The script will prompt you for the ID and secret key.
 
 ### Building the app
 To build the rest of the app, run:
