@@ -19,14 +19,6 @@ subprocess.run(["python", "manage.py", "migrate"])
 # Create all-auth models
 import set_up.set_up_all_auth
 
-# Testing
-testing = ''
-while testing not in ['yes', 'no']:
-    testing = input('Do you want to run tests now? ("yes" or "no"): ')
-
-if testing == 'yes':
-    subprocess.run(["python", "manage.py", "test", "-v", "2"])
-
 
 # Create static files
 print('Building static files.')

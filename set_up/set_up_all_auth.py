@@ -9,7 +9,7 @@ Also generates the secret key and appends to .env
 import os, sys, json
 import django
 
-
+# Set up Django
 sys.path.append('/profiles/settings.py')
 django.setup()
 

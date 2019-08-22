@@ -32,15 +32,15 @@ write_to_env('GITHUB_CLIENT_SECRET', 'GitHub Oauth app client secret: ')
 
 
 # Oauth test details
-need_github_login = ''
-while need_github_login not in ['yes', 'no']:
-    need_github_login = input(
-        'Do you want to run the Oauth functional test? ("yes" or "no"): '
-    ).replace("\"", '')
+# need_github_login = ''
+# while need_github_login not in ['yes', 'no']:
+#     need_github_login = input(
+#         'Do you want to run the Oauth functional test? ("yes" or "no"): '
+#     ).replace("\"", '')
 
-if need_github_login == 'yes':
-    write_to_env('GITHUB_USERNAME', 'GitHub username: ')
-    write_to_env('GITHUB_PASSWORD', 'GitHub password: ')
+# if need_github_login == 'yes':
+#     write_to_env('GITHUB_USERNAME', 'GitHub username: ')
+#     write_to_env('GITHUB_PASSWORD', 'GitHub password: ')
 
 
 # Settings module

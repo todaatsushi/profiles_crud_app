@@ -32,6 +32,8 @@ This will set up your .env file, database, initial models, staticfiles, superuse
 $ docker-compose up
 ```
 
+And you're up! Visit [http://localhost:8000](http://localhost:8000) to see it in action.
+
 ## Testing
 The app has a suite of tests that can be run with:
 ```
