@@ -3,16 +3,16 @@ Make a .env and set up Oauth.
 """
 
 # Set up all auth.
-print("This is a script to set up the CRUD app's Oauth login through GitHub.\n")
+print("This is a script to set up the CRUD app.\n")
+print("This will set up Oauth with GitHub, static files, database migration, superuser and the .env file.")
 print("Please make sure you have a GitHub Oauth application and the client id and secret keys.")
 print("You can make an Oauth application here: https://github.com/settings/applications/new.\n\n")
 
 # Make .env file
 import set_up.make_env
-import subprocess
+import subprocess, os
 
-
-    # Create dataabases
+# Create dataabases
 subprocess.run(["python", "manage.py", "migrate"])
 
 
@@ -27,6 +27,10 @@ while testing not in ['yes', 'no']:
 if testing == 'yes':
     subprocess.run(["python", "manage.py", "test", "-v", "2"])
 
+
+# Create static files
+print('Building static files.')
+subprocess.run(["python", "manage.py", "collectstatic"])
 
 # Create superuser
 superuser = ''
