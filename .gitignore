@@ -9,3 +9,4 @@ chromedriver
 chromedriver.log
 allauth_fixture.json
 staticfiles/
+.old-env
