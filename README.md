@@ -18,7 +18,7 @@ $ docker-compose build
 ```
 
 ### Oauth with GitHub
-Before running the script to set up the app, you will need a client ID and secret key for a GitHub Oauth app.You can set one up on GitHub [here](https://github.com/settings/applications/new). The script will prompt you for the ID and secret key.
+Before running the script to set up the app, you will need a client ID and secret key for a GitHub Oauth app. You can set one up on GitHub [here](https://github.com/settings/applications/new). The next command will prompt you for the ID and secret key.
 
 ### Building the app
 To build the rest of the app, run:
