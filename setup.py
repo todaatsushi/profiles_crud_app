@@ -31,3 +31,7 @@ while superuser not in ['yes', 'no']:
 
 if superuser =='yes':
     subprocess.run(["python", "manage.py", "createsuperuser",])
+
+print("Set up complete.")
+print("Run 'docker-compose up' to start the server.")
+print("You can also run tests by entering 'docker-compose run web python manage.py test'. ")
