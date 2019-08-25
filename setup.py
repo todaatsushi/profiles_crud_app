@@ -35,3 +35,4 @@ if superuser =='yes':
 print("Set up complete.")
 print("Run 'docker-compose up' to start the server.")
 print("You can also run tests by entering 'docker-compose run web python manage.py test'. ")
+
